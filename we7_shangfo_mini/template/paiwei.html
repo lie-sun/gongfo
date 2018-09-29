@@ -1,0 +1,112 @@
+{template 'common/header'}
+
+<div class="main">
+    <ul class="nav nav-tabs">
+        <li {if $op == 'display'}class="active"{/if}><a href="{php echo $this->createWebUrl('paiwei');}">牌位列表</a></li>
+        <li {if $op == 'detail'}class="active"{/if}><a href="{php echo $this->createWebUrl('paiwei',array('op'=>'detail'))}">添加牌位</a></li>
+        <li {if $op == 'shuju'}class="active"{/if}><a href="{php echo $this->createWebUrl('paiwei',array('id'=>$row['id'],'op'=>'shuju'))}">初始化数据</a></li>
+
+    </ul>
+{if $operation=='display'}
+    <div style="padding:15px;">
+            <table class="table table-hover">
+                <thead class="navbar-inner">
+                <tr>
+                    <th align="center" style="width:10%;text-align:center;">牌位名称</th>
+                    <th align="center" style="width:20%;text-align:center;">已获得牌位图片</th>
+                    <th align="center" style="width:20%;text-align:center;">未获得牌位图片</th>
+                    <th style="width:20%;text-align:center;">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {loop $list $index $row}
+                <tr>
+                    <td align="center" style="text-align:center;">{$row['name']}</td>
+
+                    <td class="center " style="text-align:center;"><img src="{php echo tomedia($row[imgurl])}" style="width: 40px;height: 40px"></td>
+                    <td class="center " style="text-align:center;"><img src="{php echo tomedia($row[nimgurl])}" style="width: 40px;height: 40px"></td>
+
+                    <td style="text-align:center;">
+                        <a href="{php echo $this->createWebUrl('paiwei',array('id'=>$row['id'],'op'=>'detail'))}" class="btn btn-primary ">编辑</a>
+                        <a class='btn btn-default' href="{php echo $this->createWebUrl('paiwei',array('op'=>'delete','id' => $row['id']));}" title='删除' onclick="return confirm('确定要删除吗？');">删除</a>
+
+
+                    </td>
+                </tr>
+                {/loop}
+                </tbody>
+            </table>
+
+        {$pager}
+    </div>
+
+
+<script language='javascript'>
+    function dlt(){
+        return confirm('确认删除?');
+    }
+
+</script>
+{else if $operation=='detail'}
+    <div class="clearfix">
+        <form class="form-horizontal form" action="" method="post" enctype="multipart/form-data">
+            <div class="panel panel-default">
+                <div class="panel-heading">贡品编辑</div>
+                <div class="panel-body">
+                    <input type="hidden" name="id" value="{$item[id]}">
+
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">排序</label>
+                        <div class="col-sm-8 col-xs-12">
+                            <input type="text" class="form-control" placeholder="" name="sort" value="{$item['sort']}">
+                            <span class="help-block">顺序越大则越靠前</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">牌位名称</label>
+                        <div class=" col-sm-8 col-xs-12">
+                            <input type="text" class="form-control" placeholder="" name="name" value="{$item['name']}">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">已获得牌位图片</label>
+                        <div class="col-sm-8 col-xs-12">
+                            {php echo tpl_form_field_image('imgurl', $item['imgurl'])}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">未获得牌位图片</label>
+                        <div class="col-sm-8 col-xs-12">
+                            {php echo tpl_form_field_image('nimgurl', $item['nimgurl'])}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+    <div class="form-group">
+        <div class="col-sm-12">
+            <input name="submit" type="submit" value="提交" class="btn btn-primary col-lg-1">
+            <input type="hidden" name="token" value="{$_W['token']}" />
+        </div>
+    </div>
+    </form>
+</div>
+    {else if $operation=='shuju'}
+    <div class="clearfix">
+        <form class="form-horizontal form" action="" method="post" enctype="multipart/form-data">
+
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <input name="submit" type="submit" value="初始化数据" class="btn btn-primary col-lg-1" onclick="return confirm('确定要初始化吗？初始化之后将只有最初的那几条数据！请谨慎操作！！');">
+                    <input type="hidden" name="token" value="{$_W['token']}" />
+                    <input type="hidden" name="id" value="1" />
+                </div>
+            </div>
+        </form>
+    </div>
+{/if}
+</div>
+{template 'common/footer'}

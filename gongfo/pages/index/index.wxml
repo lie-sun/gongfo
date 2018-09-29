@@ -1,0 +1,42 @@
+<import src="../footer/footer.wxml" />
+<view class="index">
+  <image src='../../images/index_bg.png' id="index_bg"></image>
+  <view class="index_con">
+
+    <!-- 音乐播放控件 -->
+    <view class="music">
+      <image src='../../images/music.png' class='music_bg' wx:if="{{musicPlay}}" catchtap='pause'></image>
+      <image src='../../images/music_off.png' class='music_bg' wx:else catchtap='play'></image>
+    </view>
+
+    <!-- 佛 -->
+    <view class='fo'>
+      <!-- 黄圈 -->
+      <view class="fo_bg" wx:if="{{gfflag}}">
+          <image src="../../images/circle.png" id="circle_bg"></image>
+      </view>
+      <image src="../../images/fo.png" id="fo"></image>
+      <image src="../../images/light_left.png" id='left_light'></image>
+      <image src="../../images/light_right.png" id='right_light'></image>
+    </view>
+
+    <!-- 香炉 -->
+    <view class="hps">
+      <image src="{{hp}}" id="hp_no_left"></image>
+      <image src="{{hp}}" id="hp_no_right"></image>
+      <image src="{{gp}}" id="gp_left"></image>
+      <image src="{{gp}}" id="gp_right"></image>
+      <image src="../../images/smoke.gif" id="smoke" wx:if="{{yanflag}}"></image>
+      <image src="{{xl}}" id="xl"></image>
+    </view>
+
+
+
+
+    <!-- 上香按钮 -->
+    <view class="sx">
+      <image src="../../images/shangxiang.gif" id="sx_btn" catchtap='shangxiang' wx:if="{{sxflag}}"></image>
+    </view>
+  </view>
+  <template is="footer" data="{{...item}}"></template>
+</view>

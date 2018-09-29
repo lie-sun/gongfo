@@ -1,0 +1,6 @@
+<import src="../footer/footer.wxml"></import>
+
+<view  class="my">
+    <image src="../../images/back.jpg" id="my_bg"></image>
+    <template is='footer' data="{{...item}}"></template>
+</view>

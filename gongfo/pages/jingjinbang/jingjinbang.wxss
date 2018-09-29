@@ -1,0 +1,165 @@
+.jingjinbang {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+     overflow: hidden;
+}
+
+#jingjinbang_bg {
+    width: 100vw;
+    height: 100vh;
+}
+
+.jingjinbang_container {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.top,
+.gongfo_list {
+    width: 100vw;
+    position: relative;
+}
+
+#top_bg {
+    width: 100vw;
+    height: 110rpx;
+}
+
+.gongfo_list {
+    margin-top: 1.2vh;
+}
+
+.gf_num {
+    width: 100vw;
+    height: 110rpx;
+    text-align: center;
+    line-height: 110rpx;
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #E4651D;
+    font-size: 36rpx;
+    letter-spacing: 3rpx;
+}
+
+#gongfo_list {
+    display: block;
+    margin: auto;
+    width: 726rpx;
+    height: 872rpx;
+}
+
+.gongfo_con {
+    border-top: 1rpx solid transparent;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100%;
+    /* background: rgb(228, 67, 209); */
+}
+
+.name {
+    font-weight: 600;
+    text-align: center;
+    margin: 10vh 0 2.5vh;
+    font-size: 37rpx;
+    color: #C6A678;
+}
+
+.shangbang_list {
+    width: 65vw;
+    margin: auto;
+    height: 48vh;
+}
+
+.lists {
+    font-size: 34rpx;
+    color: #962C06;
+    text-align: center;
+    line-height: 70rpx;
+    font-weight: 600;
+}
+
+.names {
+    color: #401F0D;
+}
+
+/* 规则 牌位 */
+
+.gzpw {
+    width: 100vw;
+    display: flex;
+    justify-content: space-around;
+}
+
+.gz_pw {
+    display: block;
+    width: 263rpx;
+    height: 66rpx;
+}
+
+.bangdanguize {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.467);
+    z-index: 10;
+}
+
+/* 榜单规则 */
+
+.guize_container {
+    width: 76vw;
+    height: 66vh;
+    margin: 17vh auto;
+    background: #fff;
+    border-radius: 25rpx;
+    text-align: center;
+    position: relative;
+}
+
+.guize_one {
+    text-align: center;
+    font-weight: 600;
+    background: #FFFF00;
+    color: #f00;
+    font-size: 32rpx;
+    letter-spacing: 3rpx;
+}
+
+.guize_two,
+.guize_three,
+.guize_four {
+    font-weight: 600;
+    width: 90%;
+    margin: 30rpx  auto;
+    font-size: 32rpx;
+    line-height: 45rpx;
+    text-align: center;
+}
+
+.guize_three,
+.guize_two {
+    color: #E26300;
+}
+
+.guize_four{
+    color: #f00;
+}
+
+.ok{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    font-size: 34rpx;
+    line-height: 95rpx;
+    border-top: 1px solid #000;
+}

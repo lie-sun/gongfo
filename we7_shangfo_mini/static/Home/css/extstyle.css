@@ -1,0 +1,58 @@
+@CHARSET "UTF-8";
+
+.DDCont .editText{
+	color:#969696;
+}
+
+/* 器械健身的评价星星样式 */
+.evaluateCont .fl .over{
+	background:url('../images/star_checked.png') no-repeat center;
+	width:14px;
+	height:13px;
+	background-size: cover;
+}
+
+.evaluateCont .fl .no_over{
+	background:url('../images/star.png') no-repeat center;
+	width:14px;
+	height:13px;
+	background-size: cover;
+}
+
+/* 团操的评价星星样式 */
+.action .evaluateCont .fl .over{
+	background:url('../images/star_checked.png') no-repeat center;
+	width:15px;
+	height:14px;
+	background-size: cover;
+}
+
+.action .evaluateCont .fl .no_over{
+	background:url('../images/star.png') no-repeat center;
+	width:15px;
+	height:14px;
+	background-size: cover;
+}
+/* end 团操的评价星星样式 */
+
+.VPCCont .info{
+	color:#fff;
+	text-align:center;
+}
+
+.VPCCont .info .dostyle_cfc{
+	width : 100%;
+	margin-top:10px;
+}
+
+.VPCCont .info .dostyle_cfc .detail{
+	color : #fff;
+	text-align:center;
+}
+
+.VPCCont .info .dostyle_cfc .detail img{
+	max-width:100%;
+}
+
+
+

@@ -1,0 +1,64 @@
+<import src="../footer/footer.wxml" />
+<view class="jingjinbang">
+    <image src="../../images/back.jpg" id="jingjinbang_bg"></image>
+    <view class="jingjinbang_container">
+        <!-- 顶部 -->
+        <view class="top">
+            <image src="../../images/diligence_list_title.png" id="top_bg"></image>
+            <view class="gf_num">已连续供佛{{gf_num}}天</view>
+        </view>
+
+        <!-- 供佛榜 -->
+        <view class="gongfo_list">
+            <image src="../../images/diligence_list_bg1.png" id="gongfo_list"></image>
+            <view class="gongfo_con">
+                <!-- 用户是否上榜 -->
+                <view class="name">
+                    {{names}},您尚未上榜
+                </view>
+                <!-- 上榜用户循环 -->
+                <scroll-view class="shangbang_list" scroll-y="{{true}}">
+                    <block wx:for="{{lists}}" wx:key="index">
+                        <view class='lists'> 随喜赞叹
+                            <text class="names">{{item.name}}</text> 登上精进榜</view>
+                    </block>
+                </scroll-view>
+            </view>
+        </view>
+
+        <!-- 榜单规则 我的牌位 -->
+        <view class="gzpw">
+            <image src="../../images/diligence_list_btn1.png" class="gz_pw" catchtap='guize'></image>
+            <image src="../../images/diligence_list_btn2.png" class="gz_pw" catchtap='paiwei'></image>
+        </view>
+
+        <!-- 榜单规则 -->
+        <view class="bangdanguize" wx:if="{{guizeFlag}}">
+            <view class="guize_container">
+                <text class="guize_one">
+                     礼佛一拜，灭罪河沙; \n  虔诚礼佛7天即可荣登精进榜！
+                </text>
+                <view class='guize_two'>
+                    
+                        如是因，如是果;<view></view>
+                        今日不将此生度，更待何时渡此身;<view></view>
+                        学佛是要觉悟，修行是为了证果，功德自在圆满！
+                   
+                </view>
+                <view class='guize_three'>
+                    
+                        礼佛贵在坚持，日积月累，福报日增;<view></view>
+                        消除过往业障，累积福慧资粮！早证菩提善果！礼佛圆满，功德回向;
+                    
+                </view>
+                <view class="guize_four">
+                    弘法布施，功德无量！
+                </view>
+                
+                <view class="ok" catchtap='ok'>好的</view>
+            </view>
+        </view>
+
+    </view>
+    <template is="footer" data="{{...item}}"></template>
+</view>

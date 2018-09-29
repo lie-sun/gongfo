@@ -1,0 +1,117 @@
+@charset "utf-8";
+/* CSS Document */
+
+body{ font-family: Arial, Microsoft YaHei;}
+a,a:hover,a:visited{ color:inherit; text-decoration:none;}
+.clear{ clear:both; float:none !important; width:0 !important; height:0 !important; margin:0 !important; padding:0 !important; border:none !important;}
+img{ vertical-align:middle;}
+
+/*contain*/
+.XJCont{ font-size:14px; width:930px; margin:0 auto; padding:30px;}
+.XJCont .title{ height:32px; line-height:32px; border-bottom:1px solid #e7e7eb;}
+.XJCont .title span{ margin-left:1em; color:#8d8d8d;}
+
+.XJCont .formBlock{ padding-top:30px;}
+.XJCont .formRow{ margin-bottom:30px;}
+.XJCont .formRow .leftC{ padding-right:0; padding-top:4px; padding-bottom:4px; line-height:18px;text-align: right}
+.XJCont .formRow .leftC .tips{ color:#8d8d8d;}
+
+.XJCont .formRow .rightC{}
+.XJCont .formRow .rightC input[type=text]{ margin:0; padding:0 5px; height:26px; line-height:26px; vertical-align:middle; background-color:#fff; border:1px solid #aaa; width:290px;}
+.XJCont .formRow .rightC input.addr{ width:210px;margin-top: 10px}
+.XJCont .formRow .rightC .btn1{ display:inline-block; width:80px; height:26px; line-height:26px; border:1px solid #aaa;  vertical-align:middle; text-align:center;  margin:10px 0 0 -5px; cursor:pointer;}
+.XJCont .formRow .rightC .btn1:hover{ background-color:#f2f2f2;}
+
+.XJCont .formRow .rightC .mapCont{ border:1px solid #aaa; border-radius:4px; height:200px;width: 298px}
+
+.XJCont .formRow .rightC .tips{ color:#8d8d8d; padding-top:4px; padding-bottom:4px; line-height:18px;}
+
+.XJCont #mainselect,.XJCont #midselect{ margin-right:10px; min-width:120px; height:26px; line-height:26px; vertical-align:middle; background-color:#fff; border:1px solid #aaa; border-radius:4px;}
+
+.XJCont .picUpload{}
+.XJCont .picUpload .uploadBtn{ width:98px; height:98px; margin:0 10px 10px 0;}
+.XJCont .picUpload .uploadBtn a{ display:block; height:96px;  text-align:center;}
+.XJCont .picUpload .uploadBtn i{ display:inline-block; width: 20px; height: 20px; vertical-align: middle; background: url(../images/base_z2b638f.png) 0 -2885px no-repeat; margin-top:38px;}
+
+.XJCont .picShow{ width:98px; height:98px; border:1px solid #d9dadc; position:relative; margin:0 10px 10px 0;}
+.XJCont .picShow img{ width:100%; height:100%;}
+.XJCont .picShow .picEdit{ display:none; width:100%; position:absolute; height:25px; bottom:0; left:0; text-align: center; background: rgba(229,229,229,0.9) !important;}
+.XJCont .picShow:hover .picEdit{ display:block;}
+.XJCont .picShow .picDelete{ display:block; vertical-align:middle; width:18px; height:18px; background: url(../images/base_z2b638f.png) 0 -4827px no-repeat; margin:3.5px auto; cursor:pointer;}
+.XJCont .picShow .picDelete:hover{ background-position:0 -4855px;}
+
+.XJCont .formRow .frm_textarea_box{
+    display: inline-block;
+    padding: 4px 0 4px 10px;
+    font-size: 14px;
+    border: 1px solid #e7e7eb;
+    -webkit-box-shadow: none;
+    -webkit-border-radius: 0;
+    background-color: #fff;
+}
+.XJCont .frm_textarea {
+    height: 100px;
+    width: 290px;
+    background-color: transparent;
+    border: 0;
+    outline: 0;
+    resize:none;
+}
+.shadow{ display:none; width:100%; position:fixed; top:0; background-color:#000; opacity:0.7; filter:alpha(opacity = 70);}
+
+.uploadLayer{ display:none; position:fixed; width:846px; top:0%; border-radius:4px; overflow:hidden; margin-top:-0px; left:50%; margin-left:-423px; background-color:#fff;}
+.uploadLayer .title{ height:52px; line-height:52px; padding:0 20px; position:relative; background-color: #f4f5f9;}
+.uploadLayer .title a{ display:block; position:absolute; top: 50%; margin-top: -8px; right: 20px; width: 16px; height: 16px; background: url(../images/base_z2b638f.png) 0 -2833px no-repeat;}
+.uploadLayer .title a:hover{ background-position:0 -2859px;}
+
+.uploadLayer .cont{ font-size:14px; border: 1px solid #e7e7eb; border-left:none; border-right:none;}
+.uploadLayer .cont .menu{ width:150px; height:460px; overflow-y:auto; border-right: 1px solid #e7e7eb;}
+.uploadLayer .cont .menu ul{}
+.uploadLayer .cont .menu li{ height:32px; line-height:32px;}
+.uploadLayer .cont .menu li:hover,.uploadLayer .cont .menu li.curr{ background-color:#f4f5f9;}
+.uploadLayer .cont .menu a{ display:block; padding-left:1.5em;}
+.uploadLayer .cont .menu .menuSpan{ margin-left:2px; color:#8d8d8d;}
+
+.uploadLayer .cont .pic{ width:696px;}
+.uploadLayer .cont .pic .picBtn{ text-align:right; padding:10px 20px; color:#8d8d8d; line-height:32px; border-bottom: 1px solid #e7e7eb;}
+.uploadLayer .cont .pic .picBtn a{ display:inline-block; width:106px; height:32px; line-height:32px; text-align:center; background-color: #44b549; color:#fff; border-radius:4px; margin-left:10px;}
+.uploadLayer .cont .pic .picList{ padding:20px; height:407px; overflow:auto;}
+.uploadLayer .cont .pic .picList ul{}
+.uploadLayer .cont .pic .picList li{ float:left; margin:0 11px 10px 0;}
+.uploadLayer .cont .pic .picList li label{ display:block; width:119px; border:1px solid #e7e7eb; cursor:pointer; position:relative;}
+.uploadLayer .cont .pic .picList li label img{ width:117px; height:117px;}
+.uploadLayer .cont .pic .picList li p{ height:32px; line-height:32px; padding:0 9px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;}
+.selectedMask { position: absolute; width: 100%; height: 100%; top: 0; left: 0;}
+label.selected .SMInner { width: 117px; height: 117px; opacity: .6; background-color: #000; filter: alpha(opacity=60);}
+label.selected .SMIcon { position: absolute; top: 0; left: 0; background: transparent url(../images/icon_card_selected218877.png) no-repeat 0 0; width: 117px; height: 117px; vertical-align: middle; display: inline-block; background-position: 50% 50%;}
+
+.uploadLayer .footer{ text-align:center; padding:16px 0; position:relative;}
+.uploadLayer .footer .ULBtn{ min-width:104px; height:30px; line-height:30px; text-align:center; padding:0; background-color:#fff; border:1px solid #e7e7eb; border-radius:4px; margin:0 .3em; font-size:14px;}
+.uploadLayer .footer .submit{ background-color: #44b549; border-color: #44b549; color: #fff;}
+.uploadLayer .footer .cancel{}
+.uploadLayer .footer .count{ position:absolute; bottom: 23px; left: 20px; font-size:14px;}
+#submit{
+    height: 35px;
+    width: 100px;
+    color: #fff;
+    background-color: #44b549;
+    border: 0;
+    position:absolute;
+    margin-left: 300px;
+    border-radius: 5px;
+}
+#submit:hover{
+    background-color: #248554;
+}
+
+
+
+
+
+
+
+
+
+
+
+

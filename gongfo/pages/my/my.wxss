@@ -1,0 +1,68 @@
+.my{
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+#my_bg{
+    width: 100vw;
+    height: 100vh;
+}
+.my_con{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;left: 0;
+}
+.gfnum,
+.daojishi,
+.wxts {
+    text-align: center;
+}
+.numcolor{
+    color: #925703;
+}
+.daojishicolor {
+   color: #86340A;
+}
+.daojishi{
+    font-size: 30rpx;
+    color: #C62908;
+    font-weight: 600;
+    line-height: 77rpx;
+}
+.gfnum{
+    font-weight: 700;
+    color: #C42200;
+    font-size: 36rpx;
+    line-height: 58rpx;
+}
+.wxts{
+    font-size: 32rpx;
+    font-weight: 600;
+    color: #BD2603;
+    line-height: 77rpx;
+}
+.username{
+    color: #fff;
+    font-weight: 600;
+    text-align: center;
+    font-size: 32rpx;
+    line-height: 66rpx;
+}
+.scview{
+    height: 60vh;
+    width: 88vw;
+    margin:2vh auto 0;
+}
+.list_gf_info{
+    display: flex;
+    justify-content: space-around;
+    line-height: 66rpx;
+    font-size: 34rpx;
+     font-weight: 600;
+}
+.gfym{
+    font-weight: 600;
+}
+

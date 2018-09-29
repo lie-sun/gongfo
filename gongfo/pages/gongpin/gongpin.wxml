@@ -1,0 +1,34 @@
+<view class="gongpin">
+    <image src="../../images/tribute_bg.png" id="gongpin_bg"></image>
+    <view class="gongpin_con">
+
+        <!-- 顶部选中的贡品列表 -->
+        <image src="{{checkedFlower}}" id="checkedFlower"></image>
+        <image src="{{checkedIncense}}" id="checkedIncense"></image>
+        <image src="{{checkedFruit}}" id="checkedFruit"></image>
+
+        <!-- 贡品选择区 -->
+        <scroll-view scroll-y="{{true}}" class="scview" id="flower">
+            <block wx:for="{{flowerArr}}" wx:key="index">
+                <view class="flowers_con">
+                    <image src="{{item.name}}" class="flowers" data-imgSrc='{{item.name}}' data-thumbimg='{{item.thumb}}' catchtap='selectFlower'></image>
+                </view>
+            </block>
+        </scroll-view>
+        <scroll-view scroll-y="{{true}}" class="scview" id="incense">
+            <block wx:for="{{incenseArr}}" wx:key="index">
+                <view class="incenses_con">
+                    <image src="{{item.name}}" class="incenses" data-imgSrc='{{item.name}}' data-thumbimg='{{item.thumb}}' catchtap='selectIncense'></image>
+                </view>
+            </block>
+        </scroll-view>
+        <scroll-view scroll-y="{{true}}" class="scview" id="fruit">
+            <block wx:for="{{fruitArr}}" wx:key="index">
+                <view class="fruits_con">
+                    <image src="{{item.name}}" class="fruits" data-imgSrc='{{item.name}}' data-thumbimg='{{item.thumb}}' catchtap='selectFruit'></image>
+                </view>
+            </block>
+        </scroll-view>
+        <image src="../../images/sure.png" id="sure_bg" catchtap='sure_gp'></image>
+    </view>
+</view>

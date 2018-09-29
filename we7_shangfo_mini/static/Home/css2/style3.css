@@ -1,0 +1,20 @@
+@charset "utf-8";
+/* CSS Document */
+
+body{ font-family: Arial, Microsoft YaHei;}
+a,a:hover,a:visited{  text-decoration:none;}
+.clear{ clear:both; float:none !important; width:0 !important; height:0 !important; margin:0 !important; padding:0 !important; border:none !important;}
+img{ vertical-align:middle;}
+
+/*contain*/
+.XJCont{ font-size:14px; width:930px; margin:0 auto; padding:30px;}
+.XJCont .title{ height:32px; line-height:32px; border-bottom:1px solid #e7e7eb;}
+.XJCont .title span{ margin-left:1em; color:#8d8d8d;}
+
+.XJCont .formBlock{ padding-top:30px;}
+.XJCont .formRow{ margin-bottom:30px;}
+.XJCont .formRow .leftC{ padding-right:0; padding-top:4px; padding-bottom:4px; line-height:18px;text-align: right;color: #a3a4a9}
+.XJCont .formRow .rightC{ padding-right:0; padding-top:4px; padding-bottom:4px; line-height:18px;}
+.reeditor{display:block;float: right;width:106px;height: 32px;background-color: #44b549;text-align: center;line-height: 32px; border-radius:5px;color: white; }
+.reeditor:hover{color: white}
+.reeditor:visited{color: white}

@@ -1,0 +1,33 @@
+.sxGdBtn {
+    display: block;
+    background: url(https://wwys-1252404190.file.myqcloud.com/sxGdBtn1.png) no-repeat;
+    background-size: 100% auto;
+    margin: 0.93333rem auto 1.81333rem auto;
+    -webkit-animation: sx_btn1 1s infinite;
+    animation: sxGdBtn 1s infinite
+}
+
+@-webkit-keyframes sxGdBtn {
+    0% {
+        background: url(https://wwys-1252404190.file.myqcloud.com/sxGdBtn1.png) no-repeat;
+        background-size: 100% auto
+    }
+
+    100% {
+        background: url(https://wwys-1252404190.file.myqcloud.com/sxGdBtn2.png) no-repeat;
+        background-size: 100% auto
+    }
+}
+
+@keyframes sxGdBtn {
+    0% {
+        background: url(https://wwys-1252404190.file.myqcloud.com/sxGdBtn1.png) no-repeat;
+        background-size: 100% auto
+    }
+
+    100% {
+        background: url(https://wwys-1252404190.file.myqcloud.com/sxGdBtn2.png) no-repeat;
+        background-size: 100% auto
+    }
+}
+/*# sourceMappingURL=index.css.map */

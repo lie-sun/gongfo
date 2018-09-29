@@ -1,0 +1,17 @@
+<import src="../footer/footer.wxml"></import>
+
+<view class="mypaiwei">
+    <view class="paiwei_list">
+        
+        <image src="../../images/thumb_5739cfa9219e3.png" class="list_img" ></image>
+        <image src="../../images/thumb_5739cc8fa4c3b.png" class="list_img" ></image>
+        <image src="../../images/thumb_5739cd0d1f1dc.png" class="list_img" ></image>
+        <view class="hr"></view>
+        <image src="../../images/thumb_5739cd8015655.png" class="list_img" ></image>
+        <image src="../../images/thumb_5739d015cb4a8.png" class="list_img" ></image>
+        <image src="../../images/thumb_5739d0946d65b.png" class="list_img" ></image>
+        
+    </view>
+
+    <template is="footer" data="{{...item}}"></template>
+</view>

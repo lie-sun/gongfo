@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{$title}</title>
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="format-detection" content="telephone=no, email=no" />
+	<script type="text/javascript" src="/attachment/shangfo/js/flexible.js"></script>
+	<script type="text/javascript" src="/attachment/shangfo/js/pageLoading.js"></script>
+	<link type="text/css" rel="stylesheet" href="/attachment/shangfo/css/tribute.css">
+	<script src="/attachment/shangfo/js/jquery.min.js?v=2.1.4"></script>
+	<script src="../addons/we7_shangfo_mini/static/layer/layer.js" type="text/javascript"></script>
+	<!--<script src="../addons/we7_shangfo_mini/static/Home/js/JSBridge.js"></script>-->
+	<!--<script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>-->
+	<script>
+		function show_loading(){
+			layer.load(1);
+		}
+		function hide_loading(){
+			layer.closeAll();
+		}
+	</script>
+
+</head>
+<body>
+
+{if $op=='display'}
+	<div class="tribute">
+		<div class="chooseRow">
+			<div class="flower ch" data-name="花篮">
+				<img id="flower_kong" src="/attachment/shangfo/images/hp_no2.png" alt="空花篮">
+			</div>
+			<div class="stove ch" data-name="香炉">
+				<img id="def_sweet_kong" src="/attachment/shangfo/images/xl_no2.png" alt="空香炉">
+			</div>
+			<div class="fruit ch" data-name="果盘">
+				<img id="fruit_kong" src="/attachment/shangfo/images/gp_no2.png" alt="空果盘">
+			</div>
+		</div>
+		<div class="chooseBox">
+			<ul class="chooselist flower">
+				{loop $flower  $row}
+				<li data-goodsname="{$row['name']}">
+						<img src="{php echo tomedia($row[imgurl])}" alt="{$row['id']}" money="{$row['price']}">
+						<span class="money">
+							{if $row[price] ==0}免费{else}{$row[price]}元{/if}
+						</span>
+				</li>
+				{/loop}
+			</ul>
+			<ul class="chooselist stove">
+				{loop $stove  $row1}
+					<li data-goodsname="{$row1['name']}">
+						<img src="{php echo tomedia($row1[imgurl])}" alt="{$row1['id']}" money="{$row1['price']}">
+						<span class="money">
+							{if $row1['price'] ==0}
+							免费
+							{else}
+							{$row1['price']}元
+							{/if}
+						</span>
+					</li>
+				{/loop}
+			</ul>
+			<ul class="chooselist fruit">
+				{loop $fruit  $row2}
+					<li data-goodsname="{$row2['name']}">
+						<img src="{php echo tomedia($row2[imgurl])}" alt="{$row2[id]}" money="{$row2['price']}">
+						<span class="money">
+							{if $row2['price'] ==0}
+							免费
+							{else}
+							{$row2['price']}元
+							{/if}
+						</span>
+					</li>
+				{/loop}
+			</ul>
+		</div>
+		<div class="chooseBtn">
+			<a href="javascript:;" title="确定贡品"></a>
+		</div>
+	</div>
+	<div class="pagetips" id="pagetips">
+	    <div class="title">随喜赞叹</div>
+	    <div class="cont">
+	        您的供佛发心，付费贡品善款皆用于本系统技 术研发和供养寺院师傅，若您经济困难可使用 免费贡品，心诚则灵
+	    </div>
+	    <ul class="ptbtn">
+	        <li><a href="javascript:;" class="topay">好</a></li>
+	    </ul>
+	</div>
+	<!--<script src="../addons/we7_shangfo_mini/static/Home/js/zepto.min.js" type="text/javascript"></script>-->
+	<script>
+
+
+
+     //   window.JSBridge.init(function(message, responseCallback) {
+//                                            log('JS got a message', message)
+//                                            var data = { 'Javascript Responds':'Wee!' }
+//                                            log('JS responding with', data)
+//                                            bridge.callEventCallback(responseCallback,data,message);
+     //   });
+
+
+		var openk='{$openid}';
+		$(function(){
+			$('ul.chooselist li').on('click', function(){
+				var index = $(this).parent().index(),
+					src = $(this).find('img').attr('src');
+				var alt = $(this).find('img').attr('alt');
+				var money = $(this).find('img').attr('money');
+				var name= $(this).attr('data-goodsname');
+				$(this).parents('.chooseBox').prev().find('.ch').eq(index).addClass('change').find('img').attr('src', src);
+				$(this).parents('.chooseBox').prev().find('.ch').eq(index).addClass('change').find('img').attr('alt', alt);
+				$(this).parents('.chooseBox').prev().find('.ch').eq(index).addClass('change').find('img').attr('money', money);
+				$(this).parents('.chooseBox').prev().find('.ch').eq(index).addClass('change').find('img').attr('data-goodsname', name);
+			});
+
+			$('.chooseBtn>a').on('click', function(){
+				var flag = true, names = "",goods="";
+				$('.chooseRow>.ch').each(function(index, el) {					
+					if(!$(this).hasClass('change')){
+						var name = $(this).attr('data-name');
+						names += name + "，";
+						flag = false;
+					}
+				});
+			/* upload the choose no */
+			var flower_name = $('#flower_kong').attr('data-goodsname');
+			var sweet_name = $('#def_sweet_kong').attr('data-goodsname');
+			var fruit_name = $('#fruit_kong').attr('data-goodsname');
+			var flower_no = $('#flower_kong').attr('alt');
+			var sweet_no = $('#def_sweet_kong').attr('alt');
+			var fruit_no = $('#fruit_kong').attr('alt');
+			var flower_money = $('#flower_kong').attr('money');
+			var sweet_money = $('#def_sweet_kong').attr('money');
+			var fruit_money = $('#fruit_kong').attr('money');
+			var total_money = Number(flower_money) + Number(sweet_money) + Number(fruit_money);
+				var goodsid=flower_no+','+sweet_no+','+fruit_no;
+				var goods=flower_name+','+sweet_name+','+fruit_name;
+				if(flag) {
+					if(total_money>0){
+						$('#pagetips').show();
+						$('.topay').on("click",function(){
+							show_loading();
+							$.ajax({
+								url : "{php echo $this->createMobileUrl('tribute')}",
+								type : 'POST',
+								dataType : 'json',
+								data : {
+									'op':'pay_info',
+									'total_money' : total_money,
+									'openid':openk
+								},
+								success : function(rdata){
+									hide_loading();
+									if(rdata['message']['status'] == 1){
+                                        $postmodel= {};
+                                        $postmodel['prepayId']=rdata['message']['prepay_id'];
+                                        $postmodel['price']=total_money;
+                                    //    alert("支付：prepay_id"+rdata['message']['prepay_id']);
+
+//                                        JSBridge.callAPI(“Native.APIWxpay”,{“t1”:”t1 Value”},testLogCallBack)
+//                                        function testLogCallBack(c) {
+//                                            console.log(“JSBridge: API Callback:”+c);
+//                                        }
+
+                                        mapp.app.wxPay($postmodel, function(response) {
+
+                                            response=JSON.parse(response);
+
+                                            if(response['success']===1)
+											{
+                                                $.ajax({
+                                                    url:"{php echo $this->createMobileUrl('tribute')}",
+                                                    type:"POST",
+                                                    dataType : 'json',
+                                                    data:{
+                                                        'op':'update',
+                                                        'id' : 2,
+                                                        'total_money' : total_money,
+                                                        'goodsid' : goodsid,
+                                                        'goods' : goods,
+                                                    },
+                                                    success: function(rdata){
+                                                        if(rdata['message']['status']==1){
+                                                            window.location.href="{php echo $this->createMobileUrl('back')}";
+                                                        }
+                                                        else if(rdata['message']['status']==2){
+                                                            layer.msg("支付失败1！");
+                                                        }
+                                                    },
+                                                    error: function(data){
+                                                        layer.msg("支付成功后跳转，操作失败！");
+                                                    }
+                                                });
+											}
+											else
+											{
+                                                layer.msg("支付失败3！");
+											}
+
+                                            // log(‘JS got response’, response);
+                                        });
+                                        return;
+
+//
+//
+//										wx.chooseWXPay({
+//											timestamp: rdata['message']['timeStamp'],
+//											nonceStr: rdata['message']['nonceStr'],
+//											package: rdata['message']['package'],
+//											signType: 'MD5', // 注意：新版支付接口使用 MD5 加密
+//											paySign: rdata['message']['paySign'],
+//
+//											success: function (res) {
+//
+//												$.ajax({
+//													url:"{php echo $this->createMobileUrl('tribute')}",
+//													type:"POST",
+//													dataType : 'json',
+//													data:{
+//														'op':'update',
+//														'id' : 2,
+//														'total_money' : total_money,
+//														'goodsid' : goodsid,
+//														'goods' : goods,
+//													},
+//													success: function(rdata){
+//														if(rdata['message']['status']==1){
+//															window.location.href="{php echo $this->createMobileUrl('index3')}";
+//														}
+//														else if(rdata['message']['status']==2){
+//															layer.msg("支付失败！");
+//														}
+//													},
+//													error: function(data){
+//														layer.msg("支付成功后跳转，操作失败！");
+//													}
+//												});
+//											},
+//											cancel: function () {
+//												layer.msg("取消支付");
+//											}
+//										});
+//
+
+
+									}else if(rdata['message']['status'] == 2){
+										layer.msg(rdata['message']['msg']);
+									}
+
+								},
+								error : function(){
+									layer.msg('支付操作失败');
+								}
+							});
+
+						});
+
+
+
+							//		$('#pagetips').css('display', 'block');
+							//		$('a.topay').on('click',function(){
+							//			$('#pagetips').css('display', 'none');
+							//window.location.href = 'index.php?g=Wap&m=Guanyi&a=pay&total='+total_money+'&token=wbvqno1458545761&flower_no='+flower_no+'&sweet_no='+sweet_no+'&fruit_no='+fruit_no+'&ispay=1';
+							//window.location.href = 'index3.html';
+							//		});
+								return
+					}else{
+						$.ajax({
+
+							url:"{php echo $this->createMobileUrl('tribute')}",
+							type:"POST",
+							dataType : 'json',
+							data:{
+								'op':'update',
+								'id' : 1,
+								'total_money' : total_money,
+								'goodsid' : goodsid,
+								'goods' : goods,
+							},
+							success: function(rdata){
+								if(rdata['message']['status']==1){
+									window.location.href="{php echo $this->createMobileUrl('back')}";
+								}else if(rdata['message']['status']==2){
+									layer.msg(rdata['message']['msg']);
+								}
+							}
+						});
+//						window.location.href = "{:U('my1',array('id'=>1))}";
+					}
+				}else {
+					names = names.substr(0,names.length-1);
+					alert("您还没选择："+names);
+					flag = true;
+					names = "";
+				}
+			});
+
+        /*  setTimeout(function(){
+				$('#pagetips').css('display', 'block');
+			}, 1000);
+
+			$('ul.ptbtn>li>a').on('click', function(){
+				$('#pagetips').css('display', 'none');
+			});*/
+
+		});
+	</script>
+</body>
+<script type="text/javascript">
+//        window.shareData = {
+//            "imgUrl": "{php echo tomedia($item[fimgurl])}",
+//            "timeLineLink": "{php echo $_W['siteroot'].'app'.trim($this->createMobileUrl('index'),'.')}",
+//            "sendFriendLink":"{php echo $_W['siteroot'].'app'.trim($this->createMobileUrl('index'),'.')}",
+//			"tTitle": "{$item[ftitle]}",
+//			"tContent": "{$item[fcontent]}",
+//			"fTitle": "{$item[ftitle]}",
+//			"fContent": "{$item[fcontent]}",
+//// 	   		 "backurl": 'http://t.cn/RGsH1My'
+//        };
+</script>
+	<script type="text/javascript">
+//	wx.ready(function () {
+//	  // 1 判断当前版本是否支持指定 JS 接口，支持批量判断
+//	  /*document.querySelector('#checkJsApi').onclick = function () {
+//	    wx.checkJsApi({
+//	      jsApiList: [
+//	        'getNetworkType',
+//	        'previewImage'
+//	      ],
+//	      success: function (res) {
+//	        //alert(JSON.stringify(res));
+//	      }
+//	    });
+//	  };*/
+//	  // 2. 分享接口
+//	  // 2.1 监听“分享给朋友”，按钮点击、自定义分享内容及分享结果接口
+//	    wx.onMenuShareAppMessage({
+//			title: window.shareData.tTitle,
+//			desc: window.shareData.tContent,
+//			link: window.shareData.sendFriendLink,
+//			imgUrl: window.shareData.imgUrl,
+//		    type: '', // 分享类型,music、video或link，不填默认为link
+//		    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+//		    success: function () {
+//		   //		window.location = window.shareData.backurl;
+//                                if(window.shareData.backurl){
+//                                        window.location = window.shareData.backurl;
+//                                }
+//		    },
+//		    cancel: function () {
+//		        //alert('分享朋友失败');
+//		    }
+//		});
+//
+//
+//	  // 2.2 监听“分享到朋友圈”按钮点击、自定义分享内容及分享结果接口
+//		wx.onMenuShareTimeline({
+//			title: window.shareData.fTitle?window.shareData.fTitle:window.shareData.tTitle,
+//			link: window.shareData.sendFriendLink,
+//			imgUrl: window.shareData.imgUrl,
+//		    success: function () {
+//		       //  shareHandle('frineds');
+//		   // 	window.location = window.shareData.backurl;
+//                                if(window.shareData.backurl){
+//                                        window.location = window.shareData.backurl;
+//                                }else{
+//					shareHandle('frineds');
+//				}
+//		    },
+//		    cancel: function () {
+//		        //alert('分享朋友圈失败');
+//		    }
+//		});
+//
+//	  // 2.4 监听“分享到微博”按钮点击、自定义分享内容及分享结果接口
+//		wx.onMenuShareWeibo({
+//			title: window.shareData.tTitle,
+//			desc: window.shareData.tContent,
+//			link: window.shareData.sendFriendLink,
+//			imgUrl: window.shareData.imgUrl,
+//		    success: function () {
+//				shareHandle('weibo');
+//		       	//alert('分享微博成功');
+//		    },
+//		    cancel: function () {
+//		        //alert('分享微博失败');
+//		    }
+//		});
+//		wx.error(function (res) {
+//			/*if(res.errMsg == 'config:invalid signature'){
+//				wx.hideOptionMenu();
+//			}else if(res.errMsg == 'config:invalid url domain'){
+//				wx.hideOptionMenu();
+//			}else{
+//				wx.hideOptionMenu();
+//				//alert(res.errMsg);
+//			}*/
+//			if(res.errMsg){
+//				wx.hideOptionMenu();
+//			}
+//		});
+//	});
+//
+//	function shareHandle(to) {
+//		var submitData = {
+//			module: window.shareData.moduleName,
+//			moduleid: window.shareData.moduleID,
+//			token:'wbvqno1458545761',
+//			wecha_id:'oN3irwfbhBhSqS2DpiP2nwGmK-fg',
+//			url: window.shareData.sendFriendLink,
+//			to:to
+//		};
+//
+//		$.post('index.php?g=Wap&m=Share&a=shareData&token=wbvqno1458545761&wecha_id=oN3irwfbhBhSqS2DpiP2nwGmK-fg',submitData,function (data) {},'json')
+//	}
+</script>
+{/if}
+</html>

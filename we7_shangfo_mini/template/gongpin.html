@@ -1,0 +1,149 @@
+{template 'common/header'}
+
+<div class="main">
+    <ul class="nav nav-tabs">
+        <li {if $op == 'display'}class="active"{/if}><a href="{php echo $this->createWebUrl('gongpin')}">贡品列表</a></li>
+        <li {if $op == 'detail'}class="active"{/if}><a href="{php echo $this->createWebUrl('gongpin',array('id'=>$row['id'],'op'=>'detail'))}">添加贡品</a></li>
+        <li {if $op == 'shuju'}class="active"{/if}><a href="{php echo $this->createWebUrl('gongpin',array('id'=>$row['id'],'op'=>'shuju'))}">初始化数据</a></li>
+
+    </ul>
+{if $operation=='display'}
+
+
+    <div style="padding:15px;">
+
+            <table class="table table-hover">
+                <thead class="navbar-inner">
+                <tr>
+                    <th align="center" style="width:10%;text-align:center;">贡品名称</th>
+                    <th align="center" style="width:10%;text-align:center;">贡品类别</th>
+                    <th align="center" style="width:20%;text-align:center;">贡品图片</th>
+                    <th align="center" style="width:20%;text-align:center;">上佛完成图片</th>
+                    <th align="center" style="width:20%;text-align:center;">贡品价格</th>
+                    <th style="width:20%;text-align:center;">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {loop $list $index $row}
+                <tr>
+                    <td align="center" style="text-align:center;">{$row['name']}</td>
+                    <td align="center" style="text-align:center;">
+                    {if $row['class']== 1}
+                    鲜花
+                    {elseif $row['class']== 2 }
+                    香
+                    {else}水果
+                    {/if}
+                    </td>
+                    <td class="center " style="text-align:center;"><img src="{php echo tomedia($row[imgurl])}" style="width: 40px;height: 40px"></td>
+                    <td class="center " style="text-align:center;"><img src="{php echo tomedia($row[wimgurl])}" style="width: 40px;height: 40px"></td>
+                    <td align="center" style="font-size:12px; color:#666; text-align:center;">{$row[price]}</td>
+
+                    <td style="text-align:center;">
+                        <a href="{php echo $this->createWebUrl('gongpin',array('id'=>$row['id'],'op'=>'detail'))}" class="btn btn-primary ">编辑</a>
+                        <a class='btn btn-default' href="{php echo $this->createWebUrl('gongpin',array('op'=>'delete','id' => $row['id']));}" title='删除' onclick="return confirm('确定要删除吗？');">删除</a>
+
+                    </td>
+                </tr>
+                {/loop}
+                </tbody>
+            </table>
+
+        {$pager}
+    </div>
+
+
+
+{else if $operation=='detail'}
+    <div class="clearfix">
+        <form class="form-horizontal form" action="" method="post" enctype="multipart/form-data">
+            <div class="panel panel-default">
+                <div class="panel-heading">贡品编辑</div>
+                <div class="panel-body">
+                    <input type="hidden" name="id" value="{$item[id]}">
+
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">排序</label>
+                        <div class="col-sm-8 col-xs-12">
+                            <input type="text" class="form-control" placeholder="" name="sort" value="{$item['sort']}">
+                            <span class="help-block">顺序越大则越靠前</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">贡品名称</label>
+                        <div class=" col-sm-8 col-xs-12">
+                            <input type="text" class="form-control" placeholder="" name="name" value="{$item['name']}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">贡品价格</label>
+                        <div class=" input-group col-sm-8 col-xs-12" style="padding-left: 15px;padding-right: 15px">
+                            <input type="text" class="form-control"  name="price" value="{$item['price']}">
+                            <span class="input-group-addon">元</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label
+                                class="col-sm-2 control-label no-padding-right">贡品类别:</label>
+                        <div class="col-sm-3">
+
+                            <div class="xaddress">
+
+                                <select name="class" id="class" class="form-control tpl-category-parent">
+                                    <option value="0" selected>请选择类型</option>
+                                    <option value="1">鲜花</option>
+                                    <option value="2">香</option>
+                                    <option value="3">水果</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <script type="text/javascript">
+                        $(function(){
+                            var class1="{$item['class']}";
+
+                            if(class1 !=''){
+                                $("select option[value="+class1+"]").attr('selected','selected');
+                            }
+                        })
+
+                    </script>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">贡品图片</label>
+                        <div class="col-sm-8 col-xs-12">
+                            {php echo tpl_form_field_image('imgurl', $item['imgurl'])}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">上佛完成贡品图片(首页显示)</label>
+                        <div class="col-sm-8 col-xs-12">
+                            {php echo tpl_form_field_image('wimgurl', $item['wimgurl'])}
+                        </div>
+                    </div>
+                </div>
+            </div>
+    <div class="form-group">
+        <div class="col-sm-12">
+            <input name="submit" type="submit" value="提交" class="btn btn-primary col-lg-1">
+            <input type="hidden" name="token" value="{$_W['token']}" />
+        </div>
+    </div>
+    </form>
+</div>
+    {else if $operation=='shuju'}
+    <div class="clearfix">
+        <form class="form-horizontal form" action="" method="post" enctype="multipart/form-data">
+
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <input name="submit" type="submit" value="初始化数据" class="btn btn-primary col-lg-1" onclick="return confirm('确定要初始化吗？初始化之后将只有最初的那几条数据！请谨慎操作！！');">
+                    <input type="hidden" name="token" value="{$_W['token']}" />
+                    <input type="hidden" name="id" value="1" />
+                </div>
+            </div>
+        </form>
+    </div>
+{/if}
+</div>
+{template 'common/footer'}

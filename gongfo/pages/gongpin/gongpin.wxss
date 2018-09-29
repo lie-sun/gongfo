@@ -1,0 +1,89 @@
+.gongpin{
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+#checkedFlower,
+#checkedIncense,
+#checkedFruit{
+    position: absolute;
+}
+#checkedFlower{
+    left: 1.5vw;
+    width: 180rpx;
+    height: 150rpx;
+    top: 1.8vh;
+}
+#checkedIncense{
+    width: 203rpx;
+    height: 166rpx;
+    top: 0.5vh;
+    left: 50%;
+    transform: translateX(-50%);
+}
+#checkedFruit{
+    right: 8vw;
+    top: 2.5vh;
+    width: 164rpx;
+    height: 145rpx;
+}
+
+
+#gongpin_bg{
+    width: 100vw;
+    height: 100vh;
+}
+.gongpin_con{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;left: 0;
+}
+.scview{
+
+    width: 30vw;
+    height: 72vh;
+    position: absolute;
+    bottom: 8.5vh;
+}
+#flower{
+    left: 1.5vw;
+}
+#incense {
+    left: 50%;
+    transform: translateX(-50%);
+}
+#fruit {
+    right: 1.5vw;
+}
+.flowers_con,
+.incenses_con,
+.fruits_con {
+    height: 17vh;
+    margin: 25rpx auto;
+}
+.flowers{
+    width: 218rpx;
+    height: 160rpx;
+    margin: auto;
+}
+.incenses{
+    width: 203rpx;
+    height: 166rpx;
+    margin: auto;
+}
+.fruits{
+    width: 164rpx;
+    height: 145rpx;
+    margin-left: 2vw;
+}
+
+#sure_bg{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 326rpx;
+    height: 82rpx;
+    bottom: 0vh;
+}

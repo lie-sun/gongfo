@@ -1,0 +1,195 @@
+{template 'common/header'}
+	<!-- <div class="slideTitle" data-url="rank.html">
+		<span>供佛周榜：</span>
+		<div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    迦叶阿南弟子一周供佛7次
+                </div>
+                <div class="swiper-slide">
+                    德善弟子一周供佛7次
+                </div>
+                <div class="swiper-slide">
+                    善信弟子一周供佛7次
+                </div>
+            </div>
+        </div>
+	</div> -->
+	<div class="gftip">
+        倒计时<span id="countdown"></span>即可再次供佛
+        <p>
+            本月供佛<em>{$sign[totatime]}</em>次<br>
+            目前连续供佛<em>{$sign[andtime]}</em>天
+        </p>
+        温馨提示：佛堂供佛系统每天能供佛三次<br>
+        <span class="man">{$userinfo[nickname]}，您于</span>
+    </div>
+    <!--<ul class="recordlist">-->
+        <!--<volist name="log" id="vo">-->
+         <!--<span>{$vo.uptime|date="Y-m-d",###}</span>  <span>{$vo.uptime|date="H :i:s",###} </span><span> 供佛圆满</span>-->
+        <!--</volist>-->
+		    <!--</ul>-->
+    <ul class="recordlist">
+            {loop $log  $row}
+        <li class="">
+            <span>{php echo date("Y-m-d",$row[uptime])}</span>
+            <span>{php echo date("H:i:s",$row[uptime])}</span>
+            <span>供佛圆满</span>
+            <div class="recordCont">
+                <p>善信弟子：<em>{$userinfo[nickname]}</em></p>
+                <p>诚心愿以此功德普及于一切，我等与众生皆共成佛道</p>
+                <p>回向给：{$row[name]}<em></em></p>
+                <p>愿他（她）：{$row[wish]}<em></em></p>
+            </div>
+        </li>
+            {/loop}
+    </ul>
+
+	<!-- <script src="js/swiper.jquery.min.js"></script> -->
+	<script src="/attachment/shangfo/js/time.js"></script>
+	<script>
+		// var swiper = new Swiper('.swiper-container', {
+  //           loop: true,
+  //           autoplay: 5000,
+  //           autoplayDisableOnInteraction : false,
+  //       });
+
+//        $('ul.recordlist>li').on('click', function(){
+//            $(this).addClass('on').siblings().removeClass('on');
+//        });
+
+        // $('.slideTitle').on('click', function(){
+        //     var href = $(this).attr('data-url');
+        //     window.location.href = href;
+        // });
+
+//        $(document).on('click',function(e){
+//            var obj = e.target;
+//            if (!$(obj).is('ul.recordlist, ul.recordlist *')) {
+//                $('ul.recordlist>li.on').removeClass('on');
+//            }
+//        });
+	</script>
+
+<script type="text/javascript">
+    window.shareData = {
+        "imgUrl": "{php echo tomedia($item[fimgurl])}",
+        "timeLineLink": "{php echo $_W['siteroot'].'app'.trim($this->createMobileUrl('index'),'.')}",
+        "sendFriendLink":"{php echo $_W['siteroot'].'app'.trim($this->createMobileUrl('index'),'.')}",
+        "tTitle": "{$item[ftitle]}",
+        "tContent": "{$item[fcontent]}",
+        "fTitle": "{$item[ftitle]}",
+        "fContent": "{$item[fcontent]}",
+// 	   		 "backurl": 'http://t.cn/RGsH1My'
+    };
+</script>
+<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js "></script>
+<script type="text/javascript">
+    // jssdk config 对象
+    jssdkconfig = {php echo json_encode($_W['account']['jssdkconfig'])} || {};
+
+    // 是否启用调试
+    jssdkconfig.debug = false;
+    jssdkconfig.jsApiList = [ 	'checkJsApi','onMenuShareTimeline',
+        'onMenuShareAppMessage',
+        'onMenuShareQQ',
+        'onMenuShareWeibo'];
+    wx.config(jssdkconfig);
+</script>
+<script type="text/javascript">
+    wx.ready(function () {
+        // 1 判断当前版本是否支持指定 JS 接口，支持批量判断
+        /*document.querySelector('#checkJsApi').onclick = function () {
+         wx.checkJsApi({
+         jsApiList: [
+         'getNetworkType',
+         'previewImage'
+         ],
+         success: function (res) {
+         //alert(JSON.stringify(res));
+         }
+         });
+         };*/
+        // 2. 分享接口
+        // 2.1 监听“分享给朋友”，按钮点击、自定义分享内容及分享结果接口
+        wx.onMenuShareAppMessage({
+            title: window.shareData.tTitle,
+            desc: window.shareData.tContent,
+            link: window.shareData.sendFriendLink,
+            imgUrl: window.shareData.imgUrl,
+            type: '', // 分享类型,music、video或link，不填默认为link
+            dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+            success: function () {
+                //		window.location = window.shareData.backurl;
+                if(window.shareData.backurl){
+                    window.location = window.shareData.backurl;
+                }
+            },
+            cancel: function () {
+                //alert('分享朋友失败');
+            }
+        });
+
+
+        // 2.2 监听“分享到朋友圈”按钮点击、自定义分享内容及分享结果接口
+        wx.onMenuShareTimeline({
+            title: window.shareData.fTitle?window.shareData.fTitle:window.shareData.tTitle,
+            link: window.shareData.sendFriendLink,
+            imgUrl: window.shareData.imgUrl,
+            success: function () {
+                //  shareHandle('frineds');
+                // 	window.location = window.shareData.backurl;
+                if(window.shareData.backurl){
+                    window.location = window.shareData.backurl;
+                }else{
+                    shareHandle('frineds');
+                }
+            },
+            cancel: function () {
+                //alert('分享朋友圈失败');
+            }
+        });
+
+        // 2.4 监听“分享到微博”按钮点击、自定义分享内容及分享结果接口
+        wx.onMenuShareWeibo({
+            title: window.shareData.tTitle,
+            desc: window.shareData.tContent,
+            link: window.shareData.sendFriendLink,
+            imgUrl: window.shareData.imgUrl,
+            success: function () {
+                shareHandle('weibo');
+                //alert('分享微博成功');
+            },
+            cancel: function () {
+                //alert('分享微博失败');
+            }
+        });
+        wx.error(function (res) {
+            /*if(res.errMsg == 'config:invalid signature'){
+             wx.hideOptionMenu();
+             }else if(res.errMsg == 'config:invalid url domain'){
+             wx.hideOptionMenu();
+             }else{
+             wx.hideOptionMenu();
+             //alert(res.errMsg);
+             }*/
+            if(res.errMsg){
+                wx.hideOptionMenu();
+            }
+        });
+    });
+
+    function shareHandle(to) {
+        var submitData = {
+            module: window.shareData.moduleName,
+            moduleid: window.shareData.moduleID,
+            token:'wbvqno1458545761',
+            wecha_id:'oN3irwfbhBhSqS2DpiP2nwGmK-fg',
+            url: window.shareData.sendFriendLink,
+            to:to
+        };
+
+        $.post('index.php?g=Wap&m=Share&a=shareData&token=wbvqno1458545761&wecha_id=oN3irwfbhBhSqS2DpiP2nwGmK-fg',submitData,function (data) {},'json')
+    }
+</script>
+{template 'common/footer'}

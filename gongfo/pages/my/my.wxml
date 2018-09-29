@@ -1,0 +1,25 @@
+<import src="../footer/footer.wxml"></import>
+
+<view  class="my">
+    <image src="../../images/back.jpg" id="my_bg"></image>
+    <view class="my_con">
+        <view class="daojishi">
+           倒计时<text class="daojishicolor"> {{time}} </text>即可再次供佛
+        </view>
+        <view class="gfnum">
+            <view> 本月供佛<text class="numcolor">{{monthnum}}</text>次</view>
+            <view>目前连续供佛<text class="numcolor">{{continuenum}}</text>天</view>
+        </view>
+        <view class="wxts"> 温馨提示：佛堂供佛系统每天能供佛三次</view>
+        <view class="username"> {{username}}，您于</view>
+        <scroll-view scroll-y="{{true}}" class="scview">
+            <block wx:for="{{gflist}}" wx:key="index">
+                <view class="list_gf_info">
+                    <view class="gf_times">{{item.time}}</view>
+                    <view class='gfym'>供佛圆满</view>
+                </view>
+            </block>
+        </scroll-view>
+    </view>
+    <template is='footer' data="{{...item}}"></template>
+</view>

@@ -1,0 +1,20 @@
+<template name='footer'>
+    <view class="footer">
+        <image src='../../images/nav.png' id="footer_bg">
+        </image>
+        <view class="footer_tab_list">
+            <view class='footerTab' catchtap='tab1'>
+                <image src="../../images/hover1.png" class="hover" wx:if="{{footerNum==1}}"></image>
+            </view>
+            <view class='footerTab' catchtap='tab2'>
+                <image src="../../images/hover2.png" class="hover" wx:if="{{footerNum==2}}"></image>
+            </view>
+            <view class='footerTab' catchtap='tab3'>
+                <image src="../../images/hover3.png" class="hover" wx:if="{{footerNum==3}}"></image>
+            </view>
+            <view class='footerTab' catchtap='tab4'>
+                <image src="../../images/hover4.png" class="hover" wx:if="{{footerNum==4}}"></image>
+            </view>
+        </view>
+    </view>
+</template>

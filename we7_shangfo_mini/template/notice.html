@@ -1,0 +1,85 @@
+{template 'common/header'}
+<script src="../addons/we7_shangfo_mini/static/Home/js/jquery.min.js?v=2.1.4"></script>
+
+<div class="main">
+    <ul class="nav nav-tabs">
+        <li {if $op == 'display'}class="active"{/if}><a href="{php echo $this->createWebUrl('notice');}">今日未拜佛用户</a></li>
+
+
+    </ul>
+{if $operation=='display'}
+
+
+    <div style="padding:15px;">
+        <form action="" method="post">
+            <input type="hidden" name="op" value="delete" />
+
+            <table class="table table-hover">
+                <thead class="navbar-inner">
+                <tr>
+                    <th align="center" style="width:10%;text-align:center;">用户昵称</th>
+                    <th align="center" style="width:10%;text-align:center;">头像</th>
+                    <th align="center" style="width:20%;text-align:center;">地址</th>
+                    <th align="center" style="width:20%;text-align:center;">性别</th>
+                    <th align="center" style="width:20%;text-align:center;">日期</th>
+                    <!--<th style="width:20%;text-align:center;">操作</th>-->
+                </tr>
+                </thead>
+                <tbody>
+                {loop $list $index $row}
+                <tr>
+                    <td align="center" style="text-align:center;">{$row['nickname']}</td>
+                    <td class="center " style="text-align:center;"><img src="{$row[headurl]}" style="width: 40px;height: 40px"></td>
+
+                    <td align="center" style="font-size:12px; color:#666; text-align:center;">{$row[province]}{$row[city]}</td>
+                    <td align="center" style="font-size:12px; color:#666; text-align:center;">{if $row[sex]==1}男{elseif $row[sex]==2}女{else}{/if}</td>
+                    <td align="center" style="font-size:12px; color:#666; text-align:center;">{php echo date("Y-m-d H:i",$row[lasttime])}</td>
+
+                    <!--<td style="text-align:center;">-->
+                        <!--&lt;!&ndash;<a href="{php echo $this->createWebUrl('gongpin',array('id'=>$row['id'],'op'=>'detail'))}" class="btn btn-primary ">编辑</a>&ndash;&gt;-->
+                       <!--<button class="btn btn-warning" type="submit" onclick="return dlt()" name="delete">删除</button>-->
+                        <!--<input type="hidden" name="token" value="{$_W['token']}" />-->
+                        <!--<input type="hidden" name="id" value="{$row['id']}" />-->
+                    <!--</td>-->
+                </tr>
+                {/loop}
+                </tbody>
+                <!--&lt;!&ndash;<a href="{php echo $this->createWebUrl('gongpin',array('id'=>$row['id'],'op'=>'detail'))}" class="btn btn-primary ">编辑</a>&ndash;&gt;-->
+                <button class="btn btn-warning" type="button" id="sendmsg" name="delete">发送拜佛通知</button>
+            </table>
+        </form>
+        {$pager}
+    </div>
+
+{/if}
+</div>
+<script language='javascript'>
+            $(function(){
+                $('#sendmsg').click(function(){
+                    var type=confirm('确认发送拜佛通知?')
+                    if (type==false){
+                        return;
+                    }
+                    $.ajax({
+
+                        url:"{php echo $this->createWebUrl('notice')}",
+                        type:"POST",
+                        dataType : 'json',
+                        data:{
+                            'op':'send',
+                            'id' : 1,
+                        },
+                        success: function(rdata){
+
+                            if(rdata['message']==1){
+                                alert('发送成功');
+                                    window.location.href="{php echo $this->createWebUrl('notice')}";
+                            }else if(rdata['message']['status']==2){
+                                alert('发送失败');
+                            }
+                        }
+                    });
+                })
+            })
+</script>
+{template 'common/footer'}

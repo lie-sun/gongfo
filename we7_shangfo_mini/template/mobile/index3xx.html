@@ -1,0 +1,255 @@
+{template 'common/header'}
+	<script type="text/javascript" src="/attachment/shangfo/js/flexible.js"></script>
+	<!--<script type="text/javascript" src="__PUBLIC__/Home/js/pageLoading.js"></script>-->
+	<link type="text/css" rel="stylesheet" href="/attachment/shangfo/css/index.css">
+
+	<!--<div class="pagebox">-->
+		{if empty($item[bgimgurl])}
+		<div class="pagebox" style=" background: url(../addons/we7_shangfo_mini/static/Home/images/bg.png) no-repeat;  background-size: 100% auto;">
+			{else}
+			<div class="pagebox" style=" background: url({php echo tomedia($item[bgimgurl])}) no-repeat;  background-size: 100% auto;">
+				{/if}
+		<div class="music">
+			<audio src="/attachment/shangfo/music/mercy.mp3" autoplay loop></audio>
+		</div>
+		<div class="circlebottom"></div>
+
+		<div class="joss">
+
+
+			{if empty($item[fximgurl])}
+			<img src="../addons/we7_shangfo_mini/static/Home/images/fo.png" alt="佛像">
+			{else}
+			<img src="{php echo tomedia($item[fximgurl])}" alt="佛像">
+			{/if}
+			<!---->
+			<!--&lt;!&ndash;<img src="http://baifo.b0.upaiyun.com/images/fo2.png" alt="佛像">&ndash;&gt;-->
+			<!--<img src="../addons/we7_shangfo_mini/static/Home/images/fo2.png" alt="佛像">-->
+
+		</div>
+		<if condition="$info.uptime eq $uptime">
+			<div class="groly">
+				<div class="circle"></div>
+			</div>
+			<div class="bottle">
+				<img src="/attachment/shangfo/images/zs.png" alt="中水">
+			</div>
+			<div class="vase">
+				<img src="{php echo tomedia($list['0']['wimgurl'])}" alt="空花瓶">
+			</div>
+			<div class="vase two">
+				<img src="{php echo tomedia($list['0']['wimgurl'])}" alt="空花瓶">
+			</div>
+			<div class="compote">
+				<img src="{php echo tomedia($list['2']['wimgurl'])}" alt="空果盘">
+			</div>
+			<div class="compote two">
+				<img src="{php echo tomedia($list['2']['wimgurl'])}" alt="空果盘">
+			</div>
+			<div class="censer">
+				<img src="{php echo tomedia($list['1']['wimgurl'])}" alt="空香炉">
+			</div>
+		</if>
+		<div class="bottle">
+			<img src="/attachment/shangfo/images/zs.png" alt="中水">
+		</div>
+		<ul class="nav">
+			<li class="on"><a href="{php echo $this->createMobileUrl('index3')}"></a></li>
+			<li><a href="{php echo $this->createMobileUrl('list')}"></a></li>
+			<li>
+				<a href="javascript:;" class="ddbtn"></a>
+				<div class="dropdown">
+					<div class="link"><a href="{php echo $this->createMobileUrl('my1')}">我的记录</a></div>
+					<div class="link"><a href="{php echo $this->createMobileUrl('my2')}">我的牌位</a></div>
+				</div>
+			</li>
+			<li><a href="javascript:;" class="sbtn"></a></li>
+		</ul>
+	</div>
+	<!--<div class="indextip" id="indextip">-->
+		<!--<div class="cont">-->
+			<!--随喜赞叹，您今天供佛圆满请做<br>回向，积累功德消业障-->
+		<!--</div>-->
+		<!--<ul class="indextip_btn">-->
+			<!--<li><a href="{php echo $this->createMobileUrl('back',array('openid' => $info['openid']))}">确定</a></li>-->
+			<!--<li><a href="javascript:;" class="cancel">取消</a></li>    -->
+		<!--</ul>-->
+	<!--</div>	-->
+<!--	<div class="foreshow" id="foreshow">
+		<div class="cont">
+			下期XX山朝圣时间为X月X日，您在X月X日-X月X日之间连续供佛达到七天，即可填写牌位。
+		</div>
+		<div class="foreshow_btn">
+			<a href="/index.php?g=Wap&m=Guanyi&a=tablet&token=wbvqno1458545761">查看更多朝圣信息</a>
+		</div>
+	</div>		-->
+	<!--<div class="indexmask" id="indexmask"></div>-->
+
+
+	<script>
+		$(function(){
+
+			$('.music').on('tap', function(){
+				if (!$(this).hasClass('off')){
+					$(this).addClass('off');
+					$('audio').get(0).pause();
+				}else {
+					$(this).removeClass('off');
+					$('audio').get(0).play();
+				}
+			});
+
+			$('body').bind('touchstart', function(){
+				if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+					if(!$('.music').hasClass('off')){
+						$('audio').get(0).play();
+					}else{
+						$('audio').get(0).pause();
+					}
+				}
+			});
+
+// 			$('a.cancel').on('tap', function(){
+//				$('#indextip, #indexmask').css('display', 'none');
+//			});
+
+			setTimeout(function(){
+				$('#listTip').css('display', 'block');
+			}, 3000);
+
+			$('a.forbtn').on('click', function(){
+				$('#listTip').css('display', 'none');
+				$('#foreshow').css('display', 'block');
+			});			
+			
+			$('a.close').on('tap', function(){
+				$(this).parent().css('display', 'none');
+			});			
+		});
+	</script>
+</body>
+
+
+
+<script type="text/javascript">
+	window.shareData = {
+		"imgUrl": "{php echo tomedia($item[fimgurl])}",
+		"timeLineLink": "{php echo $_W['siteroot'].'app'.trim($this->createMobileUrl('index'),'.')}",
+		"sendFriendLink":"{php echo $_W['siteroot'].'app'.trim($this->createMobileUrl('index'),'.')}",
+		"tTitle": "{$item[ftitle]}",
+		"tContent": "{$item[fcontent]}",
+		"fTitle": "{$item[ftitle]}",
+		"fContent": "{$item[fcontent]}",
+// 	   		 "backurl": 'http://t.cn/RGsH1My'
+	};
+</script>
+	<!--<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js "></script>-->
+	<!--<script type="text/javascript">-->
+		<!--// jssdk config 对象-->
+		<!--jssdkconfig = {php echo json_encode($_W['account']['jssdkconfig'])} || {};-->
+
+		<!--// 是否启用调试-->
+		<!--jssdkconfig.debug = false;-->
+		<!--jssdkconfig.jsApiList = [ 	'checkJsApi','onMenuShareTimeline',-->
+			<!--'onMenuShareAppMessage',-->
+			<!--'onMenuShareQQ',-->
+			<!--'onMenuShareWeibo'];-->
+		<!--wx.config(jssdkconfig);-->
+	<!--</script>-->
+	<script type="text/javascript">
+	wx.ready(function () {
+	  // 1 判断当前版本是否支持指定 JS 接口，支持批量判断
+	  /*document.querySelector('#checkJsApi').onclick = function () {
+	    wx.checkJsApi({
+	      jsApiList: [
+	        'getNetworkType',
+	        'previewImage'
+	      ],
+	      success: function (res) {
+	        //alert(JSON.stringify(res));
+	      }
+	    });
+	  };*/
+	  // 2. 分享接口
+	  // 2.1 监听“分享给朋友”，按钮点击、自定义分享内容及分享结果接口
+	    wx.onMenuShareAppMessage({
+			title: window.shareData.tTitle,
+			desc: window.shareData.tContent,
+			link: window.shareData.sendFriendLink,
+			imgUrl: window.shareData.imgUrl,
+		    type: '', // 分享类型,music、video或link，不填默认为link
+		    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+		    success: function () { 
+		   //		window.location = window.shareData.backurl;
+                                if(window.shareData.backurl){
+                                        window.location = window.shareData.backurl;
+                                }  		    	
+		    },
+		    cancel: function () { 
+		        //alert('分享朋友失败');
+		    }
+		});
+
+
+	  // 2.2 监听“分享到朋友圈”按钮点击、自定义分享内容及分享结果接口
+		wx.onMenuShareTimeline({
+			title: window.shareData.fTitle?window.shareData.fTitle:window.shareData.tTitle,
+			link: window.shareData.sendFriendLink,
+			imgUrl: window.shareData.imgUrl,
+		    success: function () { 
+		       //  shareHandle('frineds');
+		   // 	window.location = window.shareData.backurl;
+                                if(window.shareData.backurl){
+                                        window.location = window.shareData.backurl;
+                                }else{
+					shareHandle('frineds');
+				}
+		    },
+		    cancel: function () { 
+		        //alert('分享朋友圈失败');
+		    }
+		});	
+
+	  // 2.4 监听“分享到微博”按钮点击、自定义分享内容及分享结果接口
+		wx.onMenuShareWeibo({
+			title: window.shareData.tTitle,
+			desc: window.shareData.tContent,
+			link: window.shareData.sendFriendLink,
+			imgUrl: window.shareData.imgUrl,
+		    success: function () { 
+				shareHandle('weibo');
+		       	//alert('分享微博成功');
+		    },
+		    cancel: function () { 
+		        //alert('分享微博失败');
+		    }
+		});
+		wx.error(function (res) {
+			/*if(res.errMsg == 'config:invalid signature'){
+				wx.hideOptionMenu();
+			}else if(res.errMsg == 'config:invalid url domain'){
+				wx.hideOptionMenu();
+			}else{
+				wx.hideOptionMenu();
+				//alert(res.errMsg);
+			}*/
+			if(res.errMsg){
+				wx.hideOptionMenu();
+			}
+		});
+	});
+		
+	function shareHandle(to) {
+		var submitData = {
+			module: window.shareData.moduleName,
+			moduleid: window.shareData.moduleID,
+			token:'wbvqno1458545761',
+			wecha_id:'oN3irwfbhBhSqS2DpiP2nwGmK-fg',
+			url: window.shareData.sendFriendLink,
+			to:to
+		};
+
+		$.post('index.php?g=Wap&m=Share&a=shareData&token=wbvqno1458545761&wecha_id=oN3irwfbhBhSqS2DpiP2nwGmK-fg',submitData,function (data) {},'json')
+	}
+</script>
+{template 'common/footer'}

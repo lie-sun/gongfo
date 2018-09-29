@@ -1,0 +1,148 @@
+{template 'common/header'}
+	<div class="backbox">
+		<div class="backframe backsure">
+			<div class="backtitle">
+				<span class="name">善信佛子：</span><span class="enterTxt">{$_GPC[username]}</span>
+				<p>愿以此功德，普及于一切。<br>我等与众生，皆共成佛道。</p>
+			</div>
+			<div class="backrow">
+				特别回向给：<span class="enterTxt">{$_GPC[name]}</span>
+			</div>
+			<div class="backrow">
+				愿他（她）：<span class="enterTxt">{$_GPC[wish]}</span>
+			</div>
+		<!--	<a href="javascript:;" class="sharebtn"></a>    -->
+			<a href="javascript:;" class="sharebtn"></a>
+				<!--<a href="javaScript:;" class="subBack">共沾法喜</a>-->
+				<!--<a href="javaScript:;" class="subBack2" id="subBack2">随喜支持</a>-->
+		</div>
+	</div>
+		
+
+		
+
+<script type="text/javascript">
+        window.shareData = {  
+            "imgUrl": "{$info[headurl]}",
+            "timeLineLink": "{php echo $_W['siteroot'].'app'.trim($this->createMobileUrl('index'),'.')}",
+            "sendFriendLink":"{php echo $_W['siteroot'].'app'.trim($this->createMobileUrl('index'),'.')}",
+            "tTitle": "末学：{$_GPC[username]} 特别回向给{$_GPC[name]}愿你{$_GPC[wish]}",
+            "tContent": "{$item[fcontent]}",
+            "fTitle": "末学：{$_GPC[username]} 特别回向给{$_GPC[name]}愿你{$_GPC[wish]}",
+            "fContent": "{$item[fcontent]}",
+ 	   		"backurl": "{php echo $this->createMobileUrl('index')}",
+        };
+
+				$("#subBack2").click(function () {
+					window.location.href = 'https://wwys.workerhub.cn/app/index.php?i=11&c=entry&do=api&m=fr_ds&sign=BEsMlGRV2JiDPpUOCPC1DDG3cUHw1wpc&module_name=tyrjsf&title=tyrjsf&mp=1&sub_title=%E6%AF%8F%E6%97%A5%E7%A4%BC%E4%BD%9B%EF%BC%8C%E5%8A%9F%E5%BE%B7%E6%97%A0%E9%87%8F%EF%BC%81&author=%E7%A4%BC%E4%BD%9B%E5%A0%82&avatar=https://wwys.workerhub.cn/attachment/images/11/2018/01/PLSSg2S2WUPUds0vsSbpslDf2SLU3v.png';
+				})
+</script>
+	<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
+	<script type="text/javascript">
+		jssdkconfig = {php echo json_encode($_W['account']['jssdkconfig'])} || {};
+
+		// 是否启用调试
+		jssdkconfig.debug = false;
+		jssdkconfig.jsApiList = [ 	'checkJsApi','onMenuShareTimeline',
+			'onMenuShareAppMessage',
+			'onMenuShareQQ',
+			'onMenuShareWeibo'];
+		wx.config(jssdkconfig);
+	</script>
+	<script type="text/javascript">
+	wx.ready(function () {
+	  // 1 判断当前版本是否支持指定 JS 接口，支持批量判断
+	  /*document.querySelector('#checkJsApi').onclick = function () {
+	    wx.checkJsApi({
+	      jsApiList: [
+	        'getNetworkType',
+	        'previewImage'
+	      ],
+	      success: function (res) {
+	        //alert(JSON.stringify(res));
+	      }
+	    });
+	  };*/
+	  // 2. 分享接口
+	  // 2.1 监听“分享给朋友”，按钮点击、自定义分享内容及分享结果接口
+	    wx.onMenuShareAppMessage({
+			title: window.shareData.tTitle,
+			desc: window.shareData.tContent,
+			link: window.shareData.sendFriendLink,
+			imgUrl: window.shareData.imgUrl,
+		    type: '', // 分享类型,music、video或link，不填默认为link
+		    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+		    success: function () { 
+		   //		window.location = window.shareData.backurl;
+                                if(window.shareData.backurl){
+                                        window.location = window.shareData.backurl;
+                                }  		    	
+		    },
+		    cancel: function () { 
+		        //alert('分享朋友失败');
+		    }
+		});
+
+
+	  // 2.2 监听“分享到朋友圈”按钮点击、自定义分享内容及分享结果接口
+		wx.onMenuShareTimeline({
+			title: window.shareData.fTitle?window.shareData.fTitle:window.shareData.tTitle,
+			link: window.shareData.sendFriendLink,
+			imgUrl: window.shareData.imgUrl,
+		    success: function () { 
+		       //  shareHandle('frineds');
+		   // 	window.location = window.shareData.backurl;
+                                if(window.shareData.backurl){
+                                        window.location = window.shareData.backurl;
+                                }else{
+					shareHandle('frineds');
+				}
+		    },
+		    cancel: function () { 
+		        //alert('分享朋友圈失败');
+		    }
+		});	
+
+	  // 2.4 监听“分享到微博”按钮点击、自定义分享内容及分享结果接口
+		wx.onMenuShareWeibo({
+			title: window.shareData.tTitle,
+			desc: window.shareData.tContent,
+			link: window.shareData.sendFriendLink,
+			imgUrl: window.shareData.imgUrl,
+		    success: function () { 
+				shareHandle('weibo');
+		       	//alert('分享微博成功');
+		    },
+		    cancel: function () { 
+		        //alert('分享微博失败');
+		    }
+		});
+		wx.error(function (res) {
+			/*if(res.errMsg == 'config:invalid signature'){
+				wx.hideOptionMenu();
+			}else if(res.errMsg == 'config:invalid url domain'){
+				wx.hideOptionMenu();
+			}else{
+				wx.hideOptionMenu();
+				//alert(res.errMsg);
+			}*/
+			if(res.errMsg){
+				wx.hideOptionMenu();
+			}
+		});
+	});
+		
+	function shareHandle(to) {
+		var submitData = {
+			module: window.shareData.moduleName,
+			moduleid: window.shareData.moduleID,
+			token:'wbvqno1458545761',
+			wecha_id:'oN3irwfbhBhSqS2DpiP2nwGmK-fg',
+			url: window.shareData.sendFriendLink,
+			to:to
+		};
+
+		$.post('index.php?g=Wap&m=Share&a=shareData&token=wbvqno1458545761&wecha_id=oN3irwfbhBhSqS2DpiP2nwGmK-fg',submitData,function (data) {},'json')
+	}
+</script>
+{template 'common/footer'}

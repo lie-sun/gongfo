@@ -1,0 +1,22 @@
+.mypaiwei{
+    width: 100vw;
+    height: 100vh;
+    background: #5B2703;
+    position: relative;
+     overflow: hidden;
+}
+.paiwei_list{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.list_img{
+    width: 168rpx;
+    height: 420rpx;
+    display: block;
+    margin: 60rpx auto;
+
+}
+.hr{
+    width: 100vw;
+}

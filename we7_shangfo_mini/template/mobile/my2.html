@@ -1,0 +1,255 @@
+{template 'common/header'}
+
+
+	<div class="tablet">
+		<ul class="tablet_list clearfix">
+
+				{loop $onelist $row}
+			<li class="off">
+				{if in_array($row['id'],$userinfo[paiwei])}
+				<img src="{php echo tomedia($row[imgurl])}" alt="牌位">
+				{else}
+				<img src="{php echo tomedia($row[nimgurl])}" alt="牌位">
+				{/if}
+
+				<em class="time"></em>
+			</li>
+				{/loop}
+
+		</ul>
+	</div>	
+	<div class="tipMask" id="tipMask"></div>
+	<div class="noticetip" id="noticetip">
+		<div class="cont">
+			{$rule[ruletwo]}
+
+		</div>
+		<div class="commonbtn">
+			<a href="javascript:;" class="cnbtn">确定</a>
+		</div>
+	</div>		
+
+	<script>
+		$(function(){
+
+			$('ul.tablet_list>li.off').on('click', function(){
+				$('#noticetip, #tipMask').css('display', 'block');
+			});
+
+			$('a.cnbtn').on('click', function(){
+				$(this).parent().parent().css('display', 'none');
+				$(this).parent().parent().prev().css('display', 'none');
+			});
+
+			$('ul.tablet_list>li.on').on('click', function(){
+				if (!$(this).hasClass('done')) {
+					$(this).find('.choosetip, .tipMask').css('display', 'block');
+				}
+			});
+
+			$('.choosetip, .chooseEnter').on('click', function(e){
+				e.stopPropagation();
+			});
+
+			$('.tabtype>.name').on('click', function(){
+				var txt = $(this).text(),
+					pt = $(this).parents('.choosetip');
+				pt.css('display', 'none');
+				pt.next().css('display', 'block').find('.name').text(txt);
+			});
+
+			$('a.back').on('click', function(){
+				var pt = $(this).parents('.chooseEnter');
+				pt.css('display', 'none');
+				pt.prev().css('display', 'block');
+			});
+
+			$('a.sure').on('click', function(){
+				var pt = $(this).parents('.enterbtn').siblings('.cont').find('.tabenter'),
+					val1 = pt.find('.name1').val().substring(0, 6),
+					val2 = pt.find('.name2').val().substring(0, 6);
+					valid = pt.find('.did').val();
+				if (val1=='' && val2=='') {
+					alert('您还没输名字');					
+				}else{
+					$(this).parents('.on').addClass('done');
+					$(this).parents('.chooseEnter').css('display', 'none');
+					$(this).parents('.chooseEnter').siblings('.tipMask').css('display', 'none');
+					var pt2 = $(this).parents('.enterbtn').siblings('.cont').find('.tabtype'),
+						pt3 = $(this).parents('.chooseEnter').siblings('.tabname'),
+						pt4 = $(this).parents('.chooseEnter').siblings('.time'),
+						type = pt2.find('.name').text(),
+						oLi = $(this).parents('li'),
+						src_qf = oLi.find('img').attr('data-qf'),
+						src_cd = oLi.find('img').attr('data-cd');
+			//		alert("val1"+val1+"val2"+val2+"id==="+valid+"---type==="+type);
+					$.ajax({
+						type:"POST",
+						url:"/index.php?g=Wap&m=Guanyi&a=saveTablet",
+						dataType:"json",
+						data:{
+							pwid:valid,
+							name1:val1,
+							name2:val2,
+							type:type
+						},
+						success:function(data){
+							if(data.error == 3){
+								alert("this is error 3");
+							}else if(data.error == 2){
+								alert("this is error 2");
+							}else if(data.error == 1){
+				//				alert("添加成功");
+							}
+						}
+					});
+		//			coutDown();
+		//			pt4.text('剩余时间：'+day+'天'+h+'时');
+					pt3.find('span').eq(0).text(val1);
+					pt3.find('span').eq(1).text(val2);
+					if (type=='超度牌位') {
+						oLi.find('img').attr('src', src_cd);
+					}else {
+						pt3.addClass('c2');
+						oLi.find('img').attr('src', src_qf);
+					}
+				}
+			});			
+
+		});
+		
+		var day,h;
+		function coutDown(){
+			var now = new Date(),
+				hour = now.getHours(),
+				totalH = 10*24, //自定义常量，倒计时10天
+				surplusH = totalH - hour;
+
+			day = Math.floor(surplusH/24), //剩余天
+			h = surplusH%24;
+
+			setTimeout(coutDown, 3600000);
+		}		
+	</script>
+<script type="text/javascript">
+	window.shareData = {
+		"imgUrl": "{php echo tomedia($item[fimgurl])}",
+		"timeLineLink": "{php echo $_W['siteroot'].'app'.trim($this->createMobileUrl('index'),'.')}",
+		"sendFriendLink":"{php echo $_W['siteroot'].'app'.trim($this->createMobileUrl('index'),'.')}",
+		"tTitle": "{$item[ftitle]}",
+		"tContent": "{$item[fcontent]}",
+		"fTitle": "{$item[ftitle]}",
+		"fContent": "{$item[fcontent]}",
+// 	   		 "backurl": 'http://t.cn/RGsH1My'
+	};
+</script>
+<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js "></script>
+<script type="text/javascript">
+	// jssdk config 对象
+	jssdkconfig = {php echo json_encode($_W['account']['jssdkconfig'])} || {};
+
+	// 是否启用调试
+	jssdkconfig.debug = false;
+	jssdkconfig.jsApiList = [ 	'checkJsApi','onMenuShareTimeline',
+		'onMenuShareAppMessage',
+		'onMenuShareQQ',
+		'onMenuShareWeibo'];
+	wx.config(jssdkconfig);
+</script>
+<script type="text/javascript">
+	wx.ready(function () {
+		// 1 判断当前版本是否支持指定 JS 接口，支持批量判断
+		/*document.querySelector('#checkJsApi').onclick = function () {
+		 wx.checkJsApi({
+		 jsApiList: [
+		 'getNetworkType',
+		 'previewImage'
+		 ],
+		 success: function (res) {
+		 //alert(JSON.stringify(res));
+		 }
+		 });
+		 };*/
+		// 2. 分享接口
+		// 2.1 监听“分享给朋友”，按钮点击、自定义分享内容及分享结果接口
+		wx.onMenuShareAppMessage({
+			title: window.shareData.tTitle,
+			desc: window.shareData.tContent,
+			link: window.shareData.sendFriendLink,
+			imgUrl: window.shareData.imgUrl,
+			type: '', // 分享类型,music、video或link，不填默认为link
+			dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+			success: function () {
+				//		window.location = window.shareData.backurl;
+				if(window.shareData.backurl){
+					window.location = window.shareData.backurl;
+				}
+			},
+			cancel: function () {
+				//alert('分享朋友失败');
+			}
+		});
+
+
+		// 2.2 监听“分享到朋友圈”按钮点击、自定义分享内容及分享结果接口
+		wx.onMenuShareTimeline({
+			title: window.shareData.fTitle?window.shareData.fTitle:window.shareData.tTitle,
+			link: window.shareData.sendFriendLink,
+			imgUrl: window.shareData.imgUrl,
+			success: function () {
+				//  shareHandle('frineds');
+				// 	window.location = window.shareData.backurl;
+				if(window.shareData.backurl){
+					window.location = window.shareData.backurl;
+				}else{
+					shareHandle('frineds');
+				}
+			},
+			cancel: function () {
+				//alert('分享朋友圈失败');
+			}
+		});
+
+		// 2.4 监听“分享到微博”按钮点击、自定义分享内容及分享结果接口
+		wx.onMenuShareWeibo({
+			title: window.shareData.tTitle,
+			desc: window.shareData.tContent,
+			link: window.shareData.sendFriendLink,
+			imgUrl: window.shareData.imgUrl,
+			success: function () {
+				shareHandle('weibo');
+				//alert('分享微博成功');
+			},
+			cancel: function () {
+				//alert('分享微博失败');
+			}
+		});
+		wx.error(function (res) {
+			/*if(res.errMsg == 'config:invalid signature'){
+			 wx.hideOptionMenu();
+			 }else if(res.errMsg == 'config:invalid url domain'){
+			 wx.hideOptionMenu();
+			 }else{
+			 wx.hideOptionMenu();
+			 //alert(res.errMsg);
+			 }*/
+			if(res.errMsg){
+				wx.hideOptionMenu();
+			}
+		});
+	});
+
+	function shareHandle(to) {
+		var submitData = {
+			module: window.shareData.moduleName,
+			moduleid: window.shareData.moduleID,
+			token:'wbvqno1458545761',
+			wecha_id:'oN3irwfbhBhSqS2DpiP2nwGmK-fg',
+			url: window.shareData.sendFriendLink,
+			to:to
+		};
+
+		$.post('index.php?g=Wap&m=Share&a=shareData&token=wbvqno1458545761&wecha_id=oN3irwfbhBhSqS2DpiP2nwGmK-fg',submitData,function (data) {},'json')
+	}
+</script>
+{template 'common/footer'}

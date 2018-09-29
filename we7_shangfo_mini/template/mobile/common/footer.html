@@ -1,0 +1,46 @@
+<ul class="nav">
+   {if $kind==1}
+        <li class="on">
+        {else}
+        <li>
+    {/if}
+    <a href="{php echo $this->createMobileUrl('index')}"></a>
+    </li>
+
+    {if $kind==2}
+    <li class="on">
+        <a href="{php echo $this->createMobileUrl('list1')}"></a></li>
+    {else}
+        <li><a href="{php echo $this->createMobileUrl('list1')}"></a></li>
+    {/if}
+
+    {if $kind==3}<li class="on">
+        {else}
+        <li>
+        {/if}
+    <a href="{php echo $this->createMobileUrl('my1')}" class="ddbtn"></a>
+    <!--<div class="dropdown">-->
+        <!--<div class="link"><a href="{php echo $this->createMobileUrl('my1')}">我的记录</a></div>-->
+        <!--<div class="link"><a href="{php echo $this->createMobileUrl('my2')}">我的牌位</a></div>-->
+    <!--</div>-->
+    </li>
+
+
+    <li><a href="javascript:;" class="sbtn"></a></li>
+</ul>
+
+<div id="mask"></div>
+
+<script src="../addons/we7_shangfo_mini/static/Home/js/fun.js"></script>
+
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?e01f467472c3f35b9df84d05bcad815e";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+</body>
+</html>

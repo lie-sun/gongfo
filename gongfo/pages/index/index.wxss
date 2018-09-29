@@ -1,0 +1,154 @@
+.index {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+#index_bg {
+  width: 100vw;
+  height: 100vh;
+}
+
+.index_con {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.music{
+  position: absolute;
+  top: 10vh;
+  left: 1vw;
+  width: 87rpx;
+  height: 87rpx;
+  z-index: 999;
+}
+.music_bg{
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+/* 佛与佛花 */
+.fo_bg{
+  position: absolute;
+  top: -18rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 530rpx;
+  height: 519rpx;
+ 
+}
+#circle_bg{
+  display: block;
+  width:100%;
+  height: 100%;
+  animation: autorotate 20s linear infinite; 
+  -webkit-animation: autorotate 20s linear infinite;
+}
+@keyframes autorotate{
+  0%{
+    
+    transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(360deg)
+  }
+}
+@-webkit-keyframes autorotate {
+  0% {
+    
+    transform: rotate(0deg);
+  }
+  100% {
+    
+    transform: rotate(360deg)
+  }
+}
+.fo{
+  position: relative;
+  height: 61.9vh;
+  /* background: rgba(72, 255, 0, 0.342); */
+}
+#fo {
+  width: 526rpx;
+  height: 538rpx;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+}
+
+#left_light,
+#right_light {
+  width: 135rpx;
+  height: 319rpx;
+  position: absolute;
+  bottom: -1.5vh;
+  
+}
+
+#left_light{
+left: 5vw;
+}
+#right_light {
+  right: 5vw;
+}
+
+/* 花瓶，香炉 */
+.hps {
+  position: relative;
+  height: 9vh;
+  /* background: rgba(71, 26, 235, 0.438); */
+}
+#hp_no_left,
+#hp_no_right {
+  width: 233rpx;
+  height: 233rpx;
+  position: absolute;
+  bottom: 0;
+  
+}
+#hp_no_left{
+left: 9vw;
+}
+#hp_no_right{
+right: 9vw;
+}
+
+#gp_left,#gp_right{
+  width: 81rpx;
+  height: 96rpx;
+  position: absolute;
+  bottom: 0;
+}
+#gp_left{
+  left: 29vw;
+}
+#gp_right {right: 29vw;}
+#xl{
+  width: 118rpx;
+  height: 303rpx;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 1rpx;
+}
+#smoke{
+  width: 95rpx;
+  height: 135rpx;
+  position: absolute;
+  bottom: 187%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+/* 上香按钮 */
+#sx_btn {
+  width: 210rpx;
+  height: 74rpx;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 22.5vh;
+}

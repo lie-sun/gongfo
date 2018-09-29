@@ -1,0 +1,190 @@
+{template 'common/header'}
+	<div class="diligence_list">
+		<img class="img_bg" src="/attachment/shangfo/images/back.jpg">
+		<div class="content">
+			<div class="title"><span>{$info[nickname]}</span>已连续供佛<span>{$info[andtime]}</span>天</div>
+			<div class="bg_all">
+			    <!--  <div class="top"><span>于飞之梦</span>已连续上榜<span>0</span>天</div>    -->
+				{if $info['andtime'] > 6}
+				<div class="top no_diligence"><span>{$user[nickname]}</span>您已上榜</div>
+					{else}
+				<div class="top no_diligence"><span>{$user[nickname]}</span>您尚未上榜</div>
+				{/if}
+			<div class="list">
+				<dl>
+						{loop $list  $row}
+						<dt>随喜赞叹<span>{$row[nickname]}</span>登上精进榜</dt>
+						{/loop}
+				</dl>
+			</div>
+			</div>
+
+			<ul class="btn">
+				 <li><img class="rule_btn" src="/attachment/shangfo/images/diligence_list_btn1.png"></li>
+				 <li><a href="{php echo $this->createMobileUrl('my2')}"><img class="merits_btn" src="/attachment/shangfo/images/diligence_list_btn2.png"></a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="back_bg"></div>
+	<div class="diligence_list_pop rule_pop">
+	   <dl>
+	    <dt>
+			{$rule[ruleone]}
+		    <!--<h3>榜单规则</h3>-->
+			<!--<p>师兄吉祥，随喜您参与“供佛精进榜”活动。</p>-->
+			<!--<p>规则：连续供佛7天即可登上精进榜并得到祈福或超度牌位（二选一）。</p>-->
+			<!--<p>祈愿牌位将由【善知识联盟】观一旅朝圣团领队师兄统一带到圣地寺院由大师进行祈福或超度，活动真实不虚。</p>-->
+			<!--<p>请每天坚持供佛获得祈愿牌位，若供佛修行期间间断一日，系统将会清零您的供佛记录。</p>-->
+		</dt>
+		<dd>好</dd>
+		</dl>
+	</div>
+
+
+	<script>
+	    //榜单规则
+		$(".rule_btn").on("click", function(){
+			$(".back_bg").show();
+			$(".rule_pop").show();
+		});
+		$(".rule_pop dd").click(function(){
+			$(".back_bg").hide();
+			$(".rule_pop").hide();
+		});
+		//文字滚动
+		var number=0;
+	   var box_h=$(".content .list").height();
+	   var content_h=$(".content .list dl").height();
+	   var c_h=box_h-content_h;
+		var timer=setInterval(function(){
+			number--;
+			$(".content .list dl").css({"transform":"translateY("+number+"px)"});
+			$(".content .list dl").css({"-webkit-transform":"translateY("+number+"px)"});
+			$(".content .list dl").css({"-moz-transform":"translateY("+number+"px)"});
+	          if(number<c_h){
+				number=0
+			}
+		},40);
+	</script>
+<script type="text/javascript">
+	window.shareData = {
+		"imgUrl": "{php echo tomedia($item[fimgurl])}",
+		"timeLineLink": "{php echo $_W['siteroot'].'app'.trim($this->createMobileUrl('index'),'.')}",
+		"sendFriendLink":"{php echo $_W['siteroot'].'app'.trim($this->createMobileUrl('index'),'.')}",
+		"tTitle": "{$item[ftitle]}",
+		"tContent": "{$item[fcontent]}",
+		"fTitle": "{$item[ftitle]}",
+		"fContent": "{$item[fcontent]}",
+// 	   		 "backurl": 'http://t.cn/RGsH1My'
+	};
+</script>
+<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js "></script>
+<script type="text/javascript">
+	// jssdk config 对象
+	jssdkconfig = {php echo json_encode($_W['account']['jssdkconfig'])} || {};
+
+	// 是否启用调试
+	jssdkconfig.debug = false;
+	jssdkconfig.jsApiList = [ 	'checkJsApi','onMenuShareTimeline',
+		'onMenuShareAppMessage',
+		'onMenuShareQQ',
+		'onMenuShareWeibo'];
+	wx.config(jssdkconfig);
+</script>
+<script type="text/javascript">
+	wx.ready(function () {
+		// 1 判断当前版本是否支持指定 JS 接口，支持批量判断
+		/*document.querySelector('#checkJsApi').onclick = function () {
+		 wx.checkJsApi({
+		 jsApiList: [
+		 'getNetworkType',
+		 'previewImage'
+		 ],
+		 success: function (res) {
+		 //alert(JSON.stringify(res));
+		 }
+		 });
+		 };*/
+		// 2. 分享接口
+		// 2.1 监听“分享给朋友”，按钮点击、自定义分享内容及分享结果接口
+		wx.onMenuShareAppMessage({
+			title: window.shareData.tTitle,
+			desc: window.shareData.tContent,
+			link: window.shareData.sendFriendLink,
+			imgUrl: window.shareData.imgUrl,
+			type: '', // 分享类型,music、video或link，不填默认为link
+			dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+			success: function () {
+				//		window.location = window.shareData.backurl;
+				if(window.shareData.backurl){
+					window.location = window.shareData.backurl;
+				}
+			},
+			cancel: function () {
+				//alert('分享朋友失败');
+			}
+		});
+
+
+		// 2.2 监听“分享到朋友圈”按钮点击、自定义分享内容及分享结果接口
+		wx.onMenuShareTimeline({
+			title: window.shareData.fTitle?window.shareData.fTitle:window.shareData.tTitle,
+			link: window.shareData.sendFriendLink,
+			imgUrl: window.shareData.imgUrl,
+			success: function () {
+				//  shareHandle('frineds');
+				// 	window.location = window.shareData.backurl;
+				if(window.shareData.backurl){
+					window.location = window.shareData.backurl;
+				}else{
+					shareHandle('frineds');
+				}
+			},
+			cancel: function () {
+				//alert('分享朋友圈失败');
+			}
+		});
+
+		// 2.4 监听“分享到微博”按钮点击、自定义分享内容及分享结果接口
+		wx.onMenuShareWeibo({
+			title: window.shareData.tTitle,
+			desc: window.shareData.tContent,
+			link: window.shareData.sendFriendLink,
+			imgUrl: window.shareData.imgUrl,
+			success: function () {
+				shareHandle('weibo');
+				//alert('分享微博成功');
+			},
+			cancel: function () {
+				//alert('分享微博失败');
+			}
+		});
+		wx.error(function (res) {
+			/*if(res.errMsg == 'config:invalid signature'){
+			 wx.hideOptionMenu();
+			 }else if(res.errMsg == 'config:invalid url domain'){
+			 wx.hideOptionMenu();
+			 }else{
+			 wx.hideOptionMenu();
+			 //alert(res.errMsg);
+			 }*/
+			if(res.errMsg){
+				wx.hideOptionMenu();
+			}
+		});
+	});
+
+	function shareHandle(to) {
+		var submitData = {
+			module: window.shareData.moduleName,
+			moduleid: window.shareData.moduleID,
+			token:'wbvqno1458545761',
+			wecha_id:'oN3irwfbhBhSqS2DpiP2nwGmK-fg',
+			url: window.shareData.sendFriendLink,
+			to:to
+		};
+
+		$.post('index.php?g=Wap&m=Share&a=shareData&token=wbvqno1458545761&wecha_id=oN3irwfbhBhSqS2DpiP2nwGmK-fg',submitData,function (data) {},'json')
+	}
+</script>
+{template 'common/footer'}

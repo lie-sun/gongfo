@@ -1,0 +1,268 @@
+{template 'common/header'}
+	<div class="backbox">
+		<style>
+
+			[data-dpr="2"]  .subBack {
+				font-size: 32px
+			}
+
+			[data-dpr="3"]  .subBack {
+				font-size: 48px
+			}
+
+			[data-dpr="2"]  a.subBack2 {
+				font-size: 32px
+			}
+
+			[data-dpr="3"]  a.subBack2 {
+				font-size: 48px
+			}
+			.releaseBack {
+				display: none;
+				width: 8.53333rem;
+				height: 6.58667rem;
+				top: 50%;
+				position: absolute;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				-webkit-transform: translate(-50%, -50%);
+				z-index: 9999;
+				background-size: 100% auto
+			}
+
+			.subBack {
+				display: block;
+				width: 3rem;
+				height: 0.90667rem;
+				color: #fff;
+				font-size: 16px;
+				border-radius: 8px;
+				-webkit-border-radius: 8px;
+				text-align: center;
+				line-height: 0.90667rem;
+				background: #df9b67;
+				position: absolute;
+				/*bottom: 0.66667rem;*/
+				bottom: 6.66667rem;
+				left: 30%;
+				transform: translateX(-50%);
+				-webkit-transform: translateX(-50%)
+			}
+
+			a.subBack2 {
+				display: block;
+				width: 3rem;
+				height: 0.90667rem;
+				color: #fff;
+				font-size: 16px;
+				border-radius: 8px;
+				-webkit-border-radius: 8px;
+				text-align: center;
+				line-height: 0.90667rem;
+				background: #df9b67;
+				position: absolute;
+				/*bottom: 0.66667rem;*/
+				/*right:-7%;*/
+				bottom: 6.66667rem;
+				right: 1%;
+				transform: translateX(-50%);
+				-webkit-transform: translateX(-50%)
+			}
+		</style>
+		<div class="backframe">
+			<form action="{php echo $this->createMobileUrl('back2')}" method="post">
+
+			<div class="backtitle">
+				<span class="name">善信佛子：</span><span class="enterTxt"><input type="text" name="username"  value="{$info[nickname]}" class="txt"></span>
+				<p>愿以此功德，普及于一切。<br>我等与众生，皆共成佛道。</p>
+			</div>
+			<div class="backrow">
+				特别回向给：<span class="enterTxt"><input type="text" name="name"  class="txt"></span>
+			</div>
+			<div class="backrow">
+				愿他（她）：<span class="enterTxt"><input type="text" name="wish"  class="txt"></span>
+			</div>
+		<!--	<a href="index.php?g=Wap&m=Guanyi&a=back&token=wbvqno1458545761&pid=369346" class="surebtn"></a>    -->
+			<input type="hidden" value="{$uplog[id]}" name="pid" />
+			<input type="submit" class="subBack" name="submit" value="确认回向"/><!--转向back2.html-->
+				<!--<a href="javaScript:;" class="subBack">确认回向</a>-->
+				<a href="javaScript:;" class="subBack2" id="subBack2">随喜支持</a>
+			<input type="hidden" name="__hash__" value="1642fa3cb779110d7054e3f79829d011_226db3ed5b2337e253bd1672dd0b88a6" />
+			</form>
+		</div>
+
+
+		<div class="backtip">
+			<div class="title">扩展知识：为什么要回向</div>
+			<div class="cont">
+				念佛，放生，抄经，所做的一切行善积德的事情都会有“功德”。将自家所修的功德“回”转归“向”亲朋好友法界众生，不管他们是否学佛，都能结缘佛法，蒙佛加持。“回向”更是修持菩提心最重要的一门功夫
+			</div>
+		</div>
+	</div>
+<!--	<ul class="nav">
+		<li><a href="index.html"></a></li>
+		<li><a href="shelf.html"></a></li>
+		<li><a href="record.html"></a></li>
+		<li><a href="javascript:;" class="sbtn"></a></li>
+	</ul>   -->
+<script type="text/javascript" src="/attachment/gongdeng/script/zepto.min.js"></script>
+
+<script>
+	$(function(){
+
+		$('.backHref').one('click',function(){
+			var pid     = $('#pid').val();
+			var toname  = $.trim($('#toname').val());
+			var content = $.trim($('#content').val());
+
+			$.post("/index.php?g=Wap&m=Gongdeng&a=merit_back",{toname:toname,pid:pid,content:content},function(rs){
+				if(rs.code==200){
+					location.href = 'index.php?g=Wap&m=Gongdeng&a=merit_back&token=yimjsw1467078121&pid='+rs.pid;
+				}
+			},'json');
+		});
+
+		$("#subBack2").click(function () {
+			wx.miniProgram.getEnv(function(res)
+			{
+				if(res.miniprogram){
+					wx.miniProgram.navigateTo({url: 'pay/pay'});
+				}else{
+					window.location.href = 'https://zanshang.bchltech.cn/app/index.php?i=37&eid=27&c=entry&zs_model=%E5%A4%AA%E5%8E%9F%E8%BD%AF%E4%BB%B6%E7%A4%BC%E4%BD%9B&zs_title=%E6%AF%8F%E6%97%A5%E7%A4%BC%E4%BD%9B%EF%BC%8C%E5%8A%9F%E5%BE%B7%E6%97%A0%E9%87%8F&zs_auther=%E7%A4%BC%E4%BD%9B%E5%A0%82&zs_head=http://wwys-1252404190.file.myqcloud.com/WechatIMG752.jpeg&zs_url=http://t.cn/RE8MfDU';
+				}
+			})
+
+		})
+	});
+
+</script>
+<script type="text/javascript">
+	window.shareData = {
+		"imgUrl": "{$user[headurl]}",
+		"timeLineLink": "{php echo $_W['siteroot'].'app'.trim($this->createMobileUrl('index'),'.')}",
+		"sendFriendLink":"{php echo $_W['siteroot'].'app'.trim($this->createMobileUrl('index'),'.')}",
+		"tTitle": "{$info[nickname]}邀您每天一起来上佛，功德无量！",
+		"tContent": "{$item[fcontent]}",
+		"fTitle": "{$info[nickname]}邀您一起来上佛，修大福报！",
+		"fContent": "{$item[fcontent]}",
+	};
+</script>
+
+<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
+<script type="text/javascript">
+
+	jssdkconfig = {php echo json_encode($_W['account']['jssdkconfig'])} || {};
+
+	// 是否启用调试
+	jssdkconfig.debug = false;
+	jssdkconfig.jsApiList = [ 	'checkJsApi','onMenuShareTimeline',
+		'checkJsApi',
+		'onMenuShareTimeline',
+		'onMenuShareAppMessage',
+		'onMenuShareQQ',
+		'onMenuShareWeibo',
+		'openLocation',
+		'getLocation',
+		'addCard',
+		'chooseCard',
+		'openCard',
+		'hideMenuItems'];
+	wx.config(jssdkconfig);
+</script>
+<script type="text/javascript">
+	wx.ready(function () {
+		// 1 判断当前版本是否支持指定 JS 接口，支持批量判断
+		/*document.querySelector('#checkJsApi').onclick = function () {
+		 wx.checkJsApi({
+		 jsApiList: [
+		 'getNetworkType',
+		 'previewImage'
+		 ],
+		 success: function (res) {
+		 //alert(JSON.stringify(res));
+		 }
+		 });
+		 };*/
+		// 2. 分享接口
+		// 2.1 监听“分享给朋友”，按钮点击、自定义分享内容及分享结果接口
+		wx.onMenuShareAppMessage({
+			title: window.shareData.tTitle,
+			desc: window.shareData.tContent,
+			link: window.shareData.sendFriendLink,
+			imgUrl: window.shareData.imgUrl,
+			type: '', // 分享类型,music、video或link，不填默认为link
+			dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+			success: function () {
+				//		window.location = window.shareData.backurl;
+				if(window.shareData.backurl){
+					window.location = window.shareData.backurl;
+				}
+			},
+			cancel: function () {
+				//alert('分享朋友失败');
+			}
+		});
+
+
+		// 2.2 监听“分享到朋友圈”按钮点击、自定义分享内容及分享结果接口
+		wx.onMenuShareTimeline({
+			title: window.shareData.fTitle?window.shareData.fTitle:window.shareData.tTitle,
+			link: window.shareData.sendFriendLink,
+			imgUrl: window.shareData.imgUrl,
+			success: function () {
+				//  shareHandle('frineds');
+				// 	window.location = window.shareData.backurl;
+				if(window.shareData.backurl){
+					window.location = window.shareData.backurl;
+				}else{
+					shareHandle('frineds');
+				}
+			},
+			cancel: function () {
+				//alert('分享朋友圈失败');
+			}
+		});
+
+		// 2.4 监听“分享到微博”按钮点击、自定义分享内容及分享结果接口
+		wx.onMenuShareWeibo({
+			title: window.shareData.tTitle,
+			desc: window.shareData.tContent,
+			link: window.shareData.sendFriendLink,
+			imgUrl: window.shareData.imgUrl,
+			success: function () {
+				shareHandle('weibo');
+				//alert('分享微博成功');
+			},
+			cancel: function () {
+				//alert('分享微博失败');
+			}
+		});
+		wx.error(function (res) {
+			/*if(res.errMsg == 'config:invalid signature'){
+			 wx.hideOptionMenu();
+			 }else if(res.errMsg == 'config:invalid url domain'){
+			 wx.hideOptionMenu();
+			 }else{
+			 wx.hideOptionMenu();
+			 //alert(res.errMsg);
+			 }*/
+			if(res.errMsg){
+				wx.hideOptionMenu();
+			}
+		});
+	});
+
+	function shareHandle(to) {
+		var submitData = {
+			module: window.shareData.moduleName,
+			moduleid: window.shareData.moduleID,
+			token:'yimjsw1467078121',
+			wecha_id:'ozn2JxI7rzX_S3PhuFpJhw5edQVc',
+			url: window.shareData.sendFriendLink,
+			to:to
+		};
+
+		$.post('index.php?g=Wap&m=Share&a=shareData&token=yimjsw1467078121&wecha_id=ozn2JxI7rzX_S3PhuFpJhw5edQVc',submitData,function (data) {},'json')
+	}
+</script>
+{template 'common/footer'}

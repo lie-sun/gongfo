@@ -1,0 +1,111 @@
+{template 'common/header'}
+
+<div class="main">
+    <ul class="nav nav-tabs">
+        <li {if $op == 'display'}class="active"{/if}><a href="{php echo $this->createWebUrl('count');}">数据统计</a></li>
+
+
+    </ul>
+{if $operation=='display'}
+
+
+
+
+
+
+
+    <div class="panel panel-info">
+        <div class="panel-heading">筛选</div>
+        <div class="panel-body">
+            <form action="./index.php" method="get" class="form-horizontal" role="form">
+                <input type="hidden" name="c" value="{$_GPC['c']}">
+                <input type="hidden" name="a" value="{$_GPC['a']}">
+                <input type="hidden" name="do" value="{$_GPC['do']}">
+                <input type="hidden" name="m" value="{$_GPC['m']}">
+                <input type="hidden" name="op" value="{$op}">
+
+
+
+
+                <div class="form-group">
+
+                    <label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">日期范围</label>
+
+
+                    <input name="starttime" type="hidden" value="{$strartimest}"/>
+                    <input name="endtime" type="hidden" value="{$endtimest}"/>
+                    <button class="btn btn-default daterange daterange-date" type="button"><span class="date-title">{$strartimest}至{$endtimest}</span>
+                        <i class="fa fa-calendar"></i></button>
+                </div>
+                <script type="text/javascript">
+                    require(["daterangepicker"], function () {
+
+
+                        $(".daterange.daterange-date").each(function () {
+                            var elm = this;
+                            $(this).daterangepicker({
+                                startDate: $(elm).prev().prev().val(),
+                                endDate: $(elm).prev().val(),
+                                format: "YYYY-MM-DD"
+                            }, function (start, end) {
+                                $(elm).find(".date-title").html(start.toDateStr() + " 至 " + end.toDateStr());
+                                $(elm).prev().prev().val(start.toDateStr());
+                                $(elm).prev().val(end.toDateStr());
+                            });
+                        });
+
+                    });
+                </script>
+
+                <div class="col-xs-12 col-sm-2 col-md-1 col-lg-1">
+                    <button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+
+
+
+
+
+    <div style="padding:15px;">
+
+            <table class="table table-hover">
+                <thead class="navbar-inner">
+                <tr>
+                    <th align="center" style="width:20%;text-align:center;">日期</th>
+                    <th align="center" style="width:20%;text-align:center;">上佛人数</th>
+                    <th align="center" style="width:20%;text-align:center;">收入(元)</th>
+                    <th align="center" style="width:20%;text-align:center;">回向人数</th>
+                    <th align="center" style="width:20%;text-align:center;">新增会员</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                {loop $user1 $item}
+                <tr>
+
+                    <td align="center" style="text-align:center;">{$item[btime]}</td>
+                    <td align="center" style="font-size:12px; color:#666; text-align:center;">{$item[pcount]}</td>
+                    <td align="center" style="font-size:12px; color:#666; text-align:center;">{$item[paynum]}</td>
+                    <td align="center" style="font-size:12px; color:#666; text-align:center;">{$item[bcount]}</td>
+                    <td align="center" style="font-size:12px; color:#666; text-align:center;">{$item[ucount]}</td>
+
+                    <!--<td style="text-align:center;">-->
+                        <!--<a href="{php echo $this->createWebUrl('gongpin',array('id'=>$row['id'],'op'=>'detail'))}" class="btn btn-primary ">编辑</a>-->
+                        <!--<a class='btn btn-default' href="{php echo $this->createWebUrl('gongfo',array('op'=>'delete','id' => $row['id']));}" title='删除' onclick="return confirm('确定要删除该条记录吗？');">删除</a>-->
+                    <!--</td>-->
+                </tr>
+                {/loop}
+                </tbody>
+            </table>
+    </div>
+
+
+
+{/if}
+</div>
+
+{template 'common/footer'}

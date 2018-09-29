@@ -1,0 +1,84 @@
+{template 'common/header'}
+
+<div class="main">
+    <ul class="nav nav-tabs">
+        <li {if $op == 'display'}class="active"{/if}><a href="{php echo $this->createWebUrl('gongfo');}">供佛记录</a></li>
+        <li {if $op == 'detail'}class="active"{/if}><a href="{php echo $this->createWebUrl('gongfo',array('id'=>$row['id'],'op'=>'detail'))}">回向记录</a></li>
+
+    </ul>
+{if $operation=='display'}
+
+
+    <div style="padding:15px;">
+
+            <table class="table table-hover">
+                <thead class="navbar-inner">
+                <tr>
+                    <th align="center" style="width:10%;text-align:center;">用户昵称</th>
+                    <th align="center" style="width:10%;text-align:center;">购买物品</th>
+                    <th align="center" style="width:20%;text-align:center;">购买花费</th>
+                    <th align="center" style="width:20%;text-align:center;">购买日期</th>
+                    <th style="width:20%;text-align:center;">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {loop $list $index $row}
+                <tr>
+                    <td align="center" style="text-align:center;">{$row['nickname']}</td>
+                    <td align="center" style="font-size:12px; color:#666; text-align:center;">{$row[goods]}</td>
+                    <td align="center" style="font-size:12px; color:#666; text-align:center;">{$row[pay]}</td>
+                    <td align="center" style="font-size:12px; color:#666; text-align:center;">{php echo date("Y-m-d H:i",$row[uptime])}</td>
+
+                    <td style="text-align:center;">
+                        <!--<a href="{php echo $this->createWebUrl('gongpin',array('id'=>$row['id'],'op'=>'detail'))}" class="btn btn-primary ">编辑</a>-->
+                        <a class='btn btn-default' href="{php echo $this->createWebUrl('gongfo',array('op'=>'delete','id' => $row['id']));}" title='删除' onclick="return confirm('确定要删除该条记录吗？');">删除</a>
+
+
+                    </td>
+                </tr>
+                {/loop}
+                </tbody>
+            </table>
+
+        {$pager}
+    </div>
+
+{else if $operation=='detail'}
+    <div style="padding:15px;">
+
+            <table class="table table-hover">
+                <thead class="navbar-inner">
+                <tr>
+                    <th align="center" style="width:10%;text-align:center;">用户昵称</th>
+                    <th align="center" style="width:10%;text-align:center;">回向名称</th>
+                    <th align="center" style="width:20%;text-align:center;">回向内容</th>
+                    <th align="center" style="width:20%;text-align:center;">回向时间</th>
+                    <th style="width:20%;text-align:center;">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {loop $list $index $row}
+                <tr>
+                    <td align="center" style="text-align:center;">{$row['username']}</td>
+                    <td align="center" style="font-size:12px; color:#666; text-align:center;">{$row[name]}</td>
+                    <td align="center" style="font-size:12px; color:#666; text-align:center;">{$row[wish]}</td>
+                    <td align="center" style="font-size:12px; color:#666; text-align:center;">{php echo date("Y-m-d H:i",$row[addtime])}</td>
+
+                    <td style="text-align:center;">
+                        <!--<a href="{php echo $this->createWebUrl('gongpin',array('id'=>$row['id'],'op'=>'detail'))}" class="btn btn-primary ">编辑</a>-->
+                        <a class='btn btn-default' href="{php echo $this->createWebUrl('gongfo',array('op'=>'delete2','id' => $row['id']));}" title='删除' onclick="return confirm('确定要删除该条记录吗？');">删除</a>
+
+
+                    </td>
+                </tr>
+                {/loop}
+                </tbody>
+            </table>
+
+        {$pager}
+    </div>
+
+{/if}
+</div>
+
+{template 'common/footer'}

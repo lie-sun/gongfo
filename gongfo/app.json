@@ -1,0 +1,21 @@
+{
+  "pages":[
+    "pages/my/my",
+    "pages/index/index",
+    "pages/dedication/dedication",
+    "pages/dedicationzs/dedicationzs",
+    "pages/jingjinbang/jingjinbang",
+    "pages/mypaiwei/mypaiwei",
+    "pages/gongpin/gongpin",
+    "pages/durenxuefo/durenxuefo",
+    "pages/pay/pay"
+    
+
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#000",
+    "navigationBarTitleText": "礼佛大全",
+    "navigationBarTextStyle":"#fff"
+  }
+}
